@@ -45,6 +45,7 @@ function loginBtnAjax(object) {
             if (data.loginState === 'success') {
                 showDialog(data.info);
                 sessionStorage.setItem('userId', data.userId);
+                sessionStorage.setItem('userName', jQuery.parseJSON(object).userName);
                 sessionStorage.setItem('headPortrait', data.headPortrait);
                 window.location.reload();
             } else if (data.loginState === 'fail') {
@@ -63,14 +64,22 @@ function loginBtnAjax(object) {
 function alterBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/register.do',
+        url: FanYu.url + '/updatePassWord.do',
         dataType: "json",
         data: {
             'userInfo': object
         },
         timeout: 5000,
         success: function (data, status) {
-            
+            if(data.updatePassWordState === 'success'){
+                showDialog(data.info);
+                $('#login_div').fadeIn();
+                $('#signin_div').fadeOut();
+                $('#alter_div').fadeOut();
+                $('#float_div').fadeOut(200);
+            }else if(data.updatePassWordState === 'fail'){
+                showDialog(data.info);
+            }
         },
         fail: function (err, status) {
             console.log(err);

@@ -77,7 +77,7 @@ function alterBtnClick() {
         showDialog('密码应为6~22位');
     } else {
         var userInfo = {
-            "userName": account,
+            "userId": sessionStorage.getItem('userId'),
             "passWord": pwdone
         };
         var object = $.toJSON(userInfo);

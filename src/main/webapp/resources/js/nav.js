@@ -84,6 +84,7 @@ $(document).ready(function () {
                 $('#login_div').fadeOut();
                 $('#signin_div').fadeOut();
                 $('#alter_div').fadeIn();
+                $('#alter_account_input').val(sessionStorage.getItem('userName'));
                 $('#alter_account_input').focus();
                 isOpenLoginDiv = true;
                 break;
