@@ -20,7 +20,7 @@ function init() {
             "userHeadPortrait": oFREvent.target.result
         };
         var object = $.toJSON(userInfo);
-        updateImage(encoded);
+        updateImage(object);
         showDialog('正在更新...');
     };
 }
