@@ -23,10 +23,10 @@ function signinBtnAjax(object) {
             }
         },
         fail: function (err, status) {
-            console.log(err)
+            console.log(err);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showDialog('连接服务器失败')
+            showDialog('连接服务器失败');
         }
     });
 }
@@ -51,10 +51,10 @@ function loginBtnAjax(object) {
             }
         },
         fail: function (err, status) {
-            console.log(err)
+            console.log(err);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showDialog('连接服务器失败')
+            showDialog('连接服务器失败');
         }
     });
 }
@@ -78,10 +78,10 @@ function updateImage(object) {
             }
         },
         fail: function (err, status) {
-            console.log(err)
+            console.log(err);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showDialog('连接服务器失败')
+            showDialog('连接服务器失败');
         }
     });
 }
