@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/css/bootstrap.css">
+    <link href="dist/summernote.css" rel="stylesheet"/>
+    <script src="../../resources/js/js/jquery-1.11.0.min.js"></script>
+    <script src="../../resources/js/js/bootstrap.js"></script>
+    <script src="dist/summernote.js"></script>
+    <script src="dist/lang/summernote-zh-CN.js"></script>
+
+    <style>
+        .note-editable{
+            height: 100%;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            $('.summernote').summernote({
+                height: '240',
+                tabsize: 2,
+                lang: 'zh-CN'
+            });
+
+        });
+
+        function getEditContent() {
+            return $('.note-editable').html();
+        }
+
+        function setEditContent(h) {
+            $('.note-editable').html(h);
+        }
+
+        function getEditContext() {
+            return $(".summernote").first().data("summernote");
+        }
+    </script>
+</head>
+<body>
+<div class="summernote"></div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客 · 笔记</title>
+    <link rel="shortcut icon" href="resources/img/tit.png">
+    <link rel="stylesheet" href="resources/css/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/css/css/semantic.css">
+    <link rel="stylesheet" href="resources/css/css/popup.css">
+
+    <link rel="stylesheet" type="text/css" href="resources/dialog/css/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/dialog/css/dialog-annie.css"/>
+    <link rel="stylesheet" href="resources/css/style.css">
+    <script src="resources/dialog/js/modernizr.custom.js"></script>
+
+    <script src="resources/js/js/vue.min.js"></script>
+    <script src="resources/js/js/jquery-1.11.0.min.js"></script>
+    <script src="resources/js/js/jquery.json-2.3.js"></script>
+    <script src="resources/js/js/popup.js"></script>
+    <script src="resources/js/js/bootstrap.js"></script>
+    <script src="resources/js/js/jquery.cookie.js"></script>
+    <script src="resources/js/js/showdown.min.js"></script>
+    <script src="resources/dialog/js/classie.js"></script>
+    <script src="resources/dialog/js/dialogFx.js"></script>
+
+    <script src="resources/js/player.js"></script>
+    <script src="resources/js/index.js"></script>
+    <script src="resources/js/function.js"></script>
+    <script src="resources/js/ajax.js"></script>
+    <script src="resources/js/nav.js"></script>
+    <script src="resources/js/blogsItem.js"></script>
+    <script src="resources/js/login.js"></script>
+    <script src="resources/js/edit.js"></script>
+
+</head>
+<body>
+<nav class='navbar-default' v-cloak>
+    <div class='container-fluid'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle collapsed' data-toggle='collapse'
+                    data-target='#bs-example-navbar-collapse-1' aria-expanded='false'>
+                <span class='sr-only'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <div id='nav_home'>{{ navHome }}</div>
+        </div>
+        <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+            <ul class='nav navbar-nav'>
+                <li id='li_search1' style='display: none;'>
+                    <input id="search2" class='search_text' type='text' placeholder='Search'>
+                    <img class='search_btn' src='resources/img/search.png'>
+                </li>
+                <li>
+                    <div id='nav_classify' class='navbar_item_div'>{{ navClassify }}</div>
+                </li>
+                <li>
+                    <div id='nav_collect' class='navbar_item_div'>{{ navCollect }}</div>
+                </li>
+                <li>
+                    <div class='navbar_item_div'>{{ navInRegardTo }}</div>
+                </li>
+                <li id='li_search2'>
+                    <input id='search' class='search_text' type='text' placeholder='Search'>
+                    <img class='search_btn' src='resources/img/search.png'>
+                </li>
+            </ul>
+            <ul class='nav navbar-nav navbar-right'>
+                <li>
+                    <div id="nav_note" class='navbar_item_div'>{{ navNote }}</div>
+                </li>
+                <li>
+                    <div id='nav_login' class='navbar_item_div trigger' data-dialog="somedialog"> {{ navLogin }}</div>
+                    <img id="nav_headportrait" class="navbar_item_div" title="头像" src="resources/img/qw.jpg"/>
+                    <input id="uploadImage" type="file" name="myPhoto" onchange="loadImageFile();"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="somedialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+        <div id="signin_div">
+            <div id="signin_Tit">{{ signinTit }}</div>
+            <input id="signin_account_input" class="account_input" type="text" placeholder="请输入账号">
+            <input id="signin_pwd_input_one" class="account_input" type="password" placeholder="请输入密码">
+            <input id="signin_pwd_input_two" class="account_input" type="password" placeholder="请再次输入密码">
+            <button id="signin_btn">{{ signinText }}</button>
+        </div>
+        <div id="login_div">
+            <div id="login_Tit">{{ loginTit }}</div>
+            <input id="login_account_input" class="account_input" type="text" placeholder="请输入账号">
+            <input id="login_pwd_input" class="account_input" type="password" placeholder="请输入密码">
+            <div id="no_signin_div">
+                <span id="no_signin">{{ noSignin }}</span>
+                <span id="forget_pwd">{{ forgetPwd }}</span>
+            </div>
+            <button id="login_btn">{{ loginText }}</button>
+        </div>
+        <button data-dialog-close style="display: none;">Close</button>
+    </div>
+</div>
+<div id='content'>
+    <div id='content_left'></div>
+    <div id='content_mid'>
+        <div id="edit_div">
+            <div id="edit_left_div">
+                <div id="edit_left_Tit_div">
+                    <div id="edit_left_top_h1">{{ editH1 }}</div>
+                    <div id="edit_left_top_h3">{{ editH3 }}</div>
+                </div>
+                <div id="edit_left_cutoffrule"></div>
+                <div id="edit_left_bloglist"></div>
+            </div>
+            <div id="edit_mid_cutoffrule"></div>
+            <div id="edit_right_div">
+                <div id="edit_right_Tit_div">
+                    <div id="edit_right_Tit_left_div">
+                        <input id="edit_right_Tit_input" type="text" placeholder="名称">
+                    </div>
+                </div>
+                <iframe id="edit" name="iframe" src="resources/edit/index.html"></iframe>
+            </div>
+            <div id="edit_right_Tit_right_div">
+                <div id="edit_save">{{ editSave }}</div>
+                <div id="edit_cutoffrule"></div>
+                <div id="edit_issue">{{ editIssue }}</div>
+            </div>
+        </div>
+    </div>
+    <div id='content_right'></div>
+</div>
+<div id='top'></div>
+</body>
+</html>

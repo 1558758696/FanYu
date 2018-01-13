@@ -1,0 +1,507 @@
+html body {
+    margin: 0;
+    padding: 0;
+    background: rgba(0,0,0,0.05)
+}
+[v-cloak] {
+    display:none;
+
+}
+#nav_headportrait {
+    display: none;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 40px
+}
+/*NAV背景*/
+.navbar-default{
+    background: rgba(0, 0, 0, 0.74)
+}
+
+#uploadImage{
+    display: none;
+}
+/*注册*/
+#signin_div {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none
+}
+
+/*登录*/
+#login_div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white
+}
+
+/*没有账号 忘记密码*/
+#no_signin_div {
+    width: 80%;
+    height: 45px;
+    margin: 10px 10%;
+    font-size: 14px;
+    line-height: 45px;
+}
+
+/*还没账号*/
+#no_signin {
+    float: left;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#no_signin:hover {
+    opacity: 0.6;
+}
+
+/*忘记密码*/
+#forget_pwd {
+    float: right;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#forget_pwd:hover {
+    opacity: 0.6;
+}
+
+/*登录注册Tit*/
+#signin_Tit, #login_Tit {
+    width: 80%;
+    height: 45px;
+    background: none;
+    margin: 10px 10%;
+    font-size: 18px;
+    line-height: 45px;
+    cursor: pointer;
+}
+
+/*输入框*/
+.account_input {
+    outline: none;
+    color: black;
+    width: 80%;
+    height: 45px;
+    margin: 10px 10%;
+    padding-left: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5)
+}
+
+/*登录 注册按钮*/
+#signin_btn, #login_btn {
+    outline: none;
+    width: 80%;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.74);
+    color: white;
+    margin: 10px 10%;
+    border: 0
+}
+
+#signin_btn:hover {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+#login_btn:hover {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+/*首页*/
+#nav_home {
+    margin-left: 15px;
+    line-height: 50px;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/*tit_item*/
+.navbar_item_div {
+    margin-left: 40px;
+    line-height: 50px;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar_item_div:hover {
+    opacity: 0.4;
+}
+
+/*搜索框*/
+.search_text {
+    width: 200px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 40px;
+    padding-left: 15px;
+    border-radius: 20px;
+    outline: none;
+    border: 0;
+}
+
+/*搜索按钮*/
+.search_btn {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    left: -40px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.search_btn:hover {
+    opacity: 0.5;
+}
+
+/*主题内容*/
+#content {
+    position: relative;
+    width: 90%;
+    height: 87%;
+    top: 20px;
+    z-index: 10;
+}
+
+/*左侧*/
+#content_left {
+    position: absolute;
+    width: 69%;
+    height: auto;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    background: rgba(40, 39, 33, 0.16);
+    z-index: 20;
+}
+
+/*中间*/
+#content_mid {
+    display: none;
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
+    margin-bottom: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgba(40, 39, 33, 0.16);
+    z-index: 20000;
+}
+
+/*随心记*/
+#edit_div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+}
+
+/*随心左侧显示列表*/
+#edit_left_div {
+    display: none;
+    position: relative;
+    width: 19.5%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/*Tit*/
+#edit_left_Tit_div {
+    width: 100%;
+    height: 14.5%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+/*Tit随心记*/
+#edit_left_top_h1 {
+    height: 50%;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 18px;
+
+}
+
+/*Tit记录生活的点点滴滴*/
+#edit_left_top_h3 {
+    height: 50%;
+    margin-left: 40px;
+    line-height: 50px;
+    font-size: 14px;
+}
+
+/*左侧分割线*/
+#edit_left_cutoffrule {
+    width: 100%;
+    height: 0.5%;
+    background: rgba(40, 39, 33, 0.16)
+}
+
+/*左侧博客列表*/
+#edit_left_bloglist {
+    width: 100%;
+    height: 85%;
+    background: none
+}
+
+/*分割线*/
+#edit_mid_cutoffrule {
+    display: none;
+    position: relative;
+    width: 0.5%;
+    height: 100%;
+    top: -100%;
+    left: 19.5%;
+    background: rgba(40, 39, 33, 0.16);
+}
+
+/*随心右侧编辑*/
+#edit_right_div {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    top: -200%;
+    left: 20%
+}
+
+/*右侧编辑标题*/
+#edit_right_Tit_div {
+    position: relative;
+    width: 100%;
+    height: 9%;
+    background: whitesmoke;
+}
+
+/*文件名*/
+#edit_right_Tit_left_div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: none
+}
+
+/*文件名input*/
+#edit_right_Tit_input {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    top: 20%;
+    font-size: 17px;
+    text-align: center;
+    border: 0;
+    outline: none;
+    color: black;
+    border-bottom: 1px solid rgba(40, 39, 33, 0.16);
+    background: transparent;
+}
+
+/*保存发布框*/
+#edit_right_Tit_right_div {
+    position: absolute;
+    width: 90px;
+    height: 30px;
+    right: 3%;
+    top: 1.5%;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/*保存*/
+#edit_save {
+    width: 44.5px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background: rgba(0, 0, 0, 0.19);
+}
+
+#edit_cutoffrule {
+    width: 1px;
+    height: 30px;
+    margin-left: 45.5px;
+    margin-top: -30px;
+    background: transparent;
+    opacity: 0.6;
+}
+
+/*发布*/
+#edit_issue {
+    width: 44.5px;
+    height: 30px;
+    margin-left: 45.5px;
+    margin-top: -30px;
+    line-height: 30px;
+    text-align: center;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background: rgba(0, 0, 0, 0.19);
+}
+
+#edit_save:hover {
+    opacity: 0.7;
+}
+
+#edit_issue:hover {
+    opacity: 0.7;
+}
+
+/*iframe 编辑*/
+#edit {
+    width: 100%;
+    height: 91%;
+    border: 0;
+}
+
+/*博客条目*/
+#content_left_item {
+    width: 94%;
+    margin: 15px 3%;
+    height: auto;
+}
+
+/*博客标题*/
+#content_left_item_Tit {
+    width: 60%;
+    height: auto;
+    margin-left: 20px;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}
+
+/*博客标题*/
+#content_left_item_Tit_span {
+    cursor: pointer;
+}
+
+#content_left_item_Tit_span:hover {
+    color: #d206fa;
+}
+
+/*博客分类*/
+#content_left_item_classify {
+    top: -30px;
+    position: relative;
+}
+
+/*博客底部作者 时间等*/
+#content_left_item_bottom {
+    width: 100%;
+    height: auto;
+    margin-top: -20px;
+    padding-left: 20px;
+    line-height: 30px;
+    opacity: 0.7;
+}
+
+.content_left_item_bottom {
+    display: inline-block;
+}
+
+.content_left_item_bottm_right {
+    margin-right: 20px;
+}
+
+/*作者*/
+#author {
+    cursor: pointer;
+}
+
+#author:hover {
+    color: #d206fa;
+}
+
+/*收藏*/
+#collect:hover {
+    opacity: 0.7;
+}
+
+/*右侧*/
+#content_right {
+    display: none;
+    position: relative;
+    width: 30%;
+    height: 100%;
+    margin-left: 70%;
+    border-radius: 5px;
+    background: tan;
+}
+
+/*加载更多 底部*/
+#load_item {
+    width: 94%;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 3%;
+    margin-bottom: 20px;
+    line-height: 40px;
+    text-align: center;
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.36));
+    background: -o-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.36));
+    background: -moz-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.36));
+    background: linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.36));
+}
+
+#load_item:hover {
+    background: -webkit-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.76));
+    background: -o-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.76));
+    background: -moz-linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.76));
+    background: linear-gradient(rgb(255, 255, 255), rgba(190, 190, 190, 0.76));
+}
+
+/*底部文字*/
+#load_item_text {
+    position: relative;
+    width: auto;
+    height: 40px;
+    top: -14px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/*回到顶部*/
+#top {
+    display: none;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    right: 5%;
+    bottom: 5%;
+    cursor: pointer;
+    opacity: 0.8;
+    background-size: 100% 100%;
+    background-image: url('../img/top.png');
+    z-index: 1000;
+}
+
+#top:hover {
+    opacity: 0.6;
+}
+
+/*滚动条*/
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    /*background-color: red;*/
+    opacity: 0.1;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.72);
+    background-color: rgba(31, 43, 54, 0.11);
+}

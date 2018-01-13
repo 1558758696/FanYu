@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FanYu.iml" filepath="$PROJECT_DIR$/.idea/modules/FanYu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FanYu_main.iml" filepath="$PROJECT_DIR$/.idea/modules/FanYu_main.iml" group="FanYu" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FanYu_test.iml" filepath="$PROJECT_DIR$/.idea/modules/FanYu_test.iml" group="FanYu" />
+    </modules>
+  </component>
+</project>
