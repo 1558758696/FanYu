@@ -62,7 +62,7 @@ function loginBtnAjax(object) {
 function updateImage(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/updateHeadPortait.do',
+        url: FanYu.url + '/updateHeadPortrait.do',
         dataType: "json",
         data: {
             'userInfo': object
