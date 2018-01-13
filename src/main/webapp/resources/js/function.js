@@ -15,13 +15,13 @@ function init() {
     FanYu.ImageReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
     FanYu.ImageReader.onload = function (oFREvent) {
 
-        var obj = {
+        var userInfo = {
             "userId": sessionStorage.getItem('userId'),
             "userHeadPortrait": oFREvent.target.result
         };
-        var encoded = $.toJSON(obj);
-        showDialog('正在更新...');
+        var object = $.toJSON(userInfo);
         updateImage(encoded);
+        showDialog('正在更新...');
     };
 }
 
@@ -33,8 +33,13 @@ function loginBtnClick() {
     } else if (pwd === '') {
         showDialog('密码不能为空');
     } else {
+        var userInfo = {
+            "userName": account,
+            "passWord": pwd
+        };
+        var object = $.toJSON(userInfo);
+        loginBtnAjax(object);
         showDialog('正在登录...');
-        loginBtnAjax(account, pwd);
     }
 }
 
@@ -56,8 +61,13 @@ function signinBtnClick() {
     } else if (pwdone.length < 6 || pwdone.length > 22) {
         showDialog('密码应为6~22位');
     } else {
+        var userInfo = {
+            "userName": account,
+            "passWord": pwdone
+        };
+        var object = $.toJSON(userInfo);
+        signinBtnAjax(object);
         showDialog('正在注册...');
-        signinBtnAjax(account, pwdone);
     }
 }
 

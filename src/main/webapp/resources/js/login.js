@@ -4,6 +4,7 @@ $(document).ready(function () {
             case 'signin_Tit':
                 $('#signin_div').fadeOut();
                 $('#login_div').fadeIn();
+                $('#login_account_input').focus();
                 break;
             case 'signin_account_input':
                 break;
@@ -17,6 +18,7 @@ $(document).ready(function () {
             case 'login_Tit':
                 $('#signin_div').fadeIn();
                 $('#login_div').fadeOut();
+                $('#signin_account_input').focus();
                 break;
             case 'login_account_input':
                 break;
@@ -25,6 +27,7 @@ $(document).ready(function () {
             case 'no_signin':
                 $('#signin_div').fadeIn();
                 $('#login_div').fadeOut();
+                $('#signin_account_input').focus();
                 break;
             case 'forget_pwd':
                 showDialog('忘记密码');

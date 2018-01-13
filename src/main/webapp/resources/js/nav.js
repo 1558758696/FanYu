@@ -37,7 +37,7 @@ $(document).ready(function () {
                 showDialog('收藏');
                 break;
             case 'nav_login':
-                console.info('denglu');
+                $('#login_account_input').focus();
                 isOpenLoginDiv = true;
                 break;
             case 'nav_note':

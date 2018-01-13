@@ -1,19 +1,23 @@
-function signinBtnAjax(account, pwd) {
+function signinBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/register.do?userName=' + account + '&passWord=' + pwd,
+        url: FanYu.url + '/register.do',
         dataType: "json",
+        data: {
+            'userInfo': object
+        },
         timeout: 5000,
         success: function (data, status) {
             if (data.registerState === 'success') {
                 showDialog(data.info);
                 $('#signin_div').fadeOut();
                 $('#login_div').fadeIn();
-                $('#login_account_input').val(account);
+                $('#login_account_input').val(jQuery.parseJSON(object).userName);
                 $('#signin_account_input').val('');
                 $('#signin_pwd_input_one').val('');
                 $('#signin_pwd_input_two').val('');
                 $('#login_pwd_input').val('');
+                $('#login_pwd_input').focus();
             } else if (data.registerState === 'fail') {
                 showDialog(data.info);
             }
@@ -27,11 +31,14 @@ function signinBtnAjax(account, pwd) {
     });
 }
 
-function loginBtnAjax(account, pwd) {
+function loginBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/login.do?userName=' + account + '&passWord=' + pwd,
+        url: FanYu.url + '/login.do',
         dataType: "json",
+        data: {
+            'userInfo': object
+        },
         timeout: 5000,
         success: function (data, status) {
             if (data.loginState === 'success') {
@@ -55,12 +62,12 @@ function loginBtnAjax(account, pwd) {
 function updateImage(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/update.do',
+        url: FanYu.url + '/updateHeadPortait.do',
         dataType: "json",
         data: {
             'userInfo': object
         },
-        timeout: 3000,
+        timeout: 5000,
         success: function (data, status) {
             if (data.updateState === 'success') {
                 $('#nav_headportrait').attr('src', data.userHeadPortrait);
