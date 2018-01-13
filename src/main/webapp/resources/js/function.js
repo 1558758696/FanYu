@@ -7,11 +7,6 @@ var isGreater = true;
 
 function init() {
     FanYu.diaLog = new $.zui.Messager();
-    var dlgtrigger = document.querySelector('[data-dialog]'),
-        somedialog = document.getElementById(dlgtrigger.getAttribute('data-dialog')),
-        dlg = new DialogFx(somedialog);
-    dlgtrigger.addEventListener('click', dlg.toggle.bind(dlg));
-
     FanYu.ImageReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
     FanYu.ImageReader.onload = function (oFREvent) {
 
@@ -44,7 +39,6 @@ function loginBtnClick() {
 }
 
 function signinBtnClick() {
-    var reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
     var account = $('#signin_account_input').val();
     var pwdone = $('#signin_pwd_input_one').val();
     var pwdtwo = $('#signin_pwd_input_two').val();
@@ -54,9 +48,7 @@ function signinBtnClick() {
         showDialog('密码不能为空');
     } else if (pwdone !== pwdtwo) {
         showDialog('两次密码不一致');
-    } /*else if (reg.test(account)) {
-     showDialog('用户名暂不支持汉字')
-     } */ else if (account.length < 2 || account.length > 22) {
+    } else if (account.length < 2 || account.length > 22) {
         showDialog('用户名应为6~22位');
     } else if (pwdone.length < 6 || pwdone.length > 22) {
         showDialog('密码应为6~22位');
@@ -68,6 +60,29 @@ function signinBtnClick() {
         var object = $.toJSON(userInfo);
         signinBtnAjax(object);
         showDialog('正在注册...');
+    }
+}
+
+function alterBtnClick() {
+    var account = $('#alter_account_input').val();
+    var pwdone = $('#alter_pwd_input_one').val();
+    var pwdtwo = $('#alter_pwd_input_two').val();
+    if (account === '') {
+        showDialog('账号不能为空');
+    } else if (pwdone === '' || pwdtwo === '') {
+        showDialog('密码不能为空');
+    } else if (pwdone !== pwdtwo) {
+        showDialog('两次密码不一致');
+    } else if (pwdone.length < 6 || pwdone.length > 22) {
+        showDialog('密码应为6~22位');
+    } else {
+        var userInfo = {
+            "userName": account,
+            "passWord": pwdone
+        };
+        var object = $.toJSON(userInfo);
+        alterBtnAjax(object);
+        showDialog('正在修改...');
     }
 }
 
@@ -191,6 +206,10 @@ function changeWidth() {
 }
 
 function scrollTopBtn() {
+    $('#userInfo_div').css('top', -($(window).scrollTop() - 51));
+    if ($(window).scrollTop() > 50) {
+        $('#userInfo_div').fadeOut();
+    }
     if ($(window).scrollTop() > FanYu.scrollTop) {
         $('#top').fadeIn();
     } else {

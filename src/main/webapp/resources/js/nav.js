@@ -3,12 +3,6 @@ $(document).ready(function () {
 
     var isOpenEdit = true;
     var isOpenScreen = true;
-    
-    // $('#nav_home').text(FanYu.NavHome);
-    // $('#nav_classify').text(FanYu.NavClassify);
-    // $('#nav_collect').text(FanYu.NavCollect);
-    // $('#nav_note').text(FanYu.NavNote);
-    // $('#nav_login').text(FanYu.NavLogin);
 
     var userId = sessionStorage.getItem('userId');
     if (userId != null) {
@@ -37,6 +31,10 @@ $(document).ready(function () {
                 showDialog('收藏');
                 break;
             case 'nav_login':
+                $('#float_div').fadeIn(400);
+                $('#signin_div').fadeOut();
+                $('#alter_div').fadeOut();
+                $('#login_div').fadeIn();
                 $('#login_account_input').focus();
                 isOpenLoginDiv = true;
                 break;
@@ -60,11 +58,40 @@ $(document).ready(function () {
                 }
                 break;
             case 'nav_headportrait':
-                $("#uploadImage").trigger("click");
+                if ($("#userInfo_div").is(":hidden")) {
+                    $('#userInfo_div').show(400);
+                    $('#userInfo_div_ul').fadeIn();
+
+                }else{
+                    $('#userInfo_div_ul').fadeOut(50);
+                    $('#userInfo_div').hide(400);
+                }
+
                 break;
             default :
                 searchBlog();
                 break
+        }
+    });
+
+    $('#userInfo_div').on('click','#alter_headPortrait,#alter_password,#quit',function () {
+        switch ($(this).attr('id')){
+            case 'alter_headPortrait':
+                $("#uploadImage").trigger("click");
+                break;
+            case 'alter_password':
+                $('#float_div').fadeIn(400);
+                $('#login_div').fadeOut();
+                $('#signin_div').fadeOut();
+                $('#alter_div').fadeIn();
+                $('#alter_account_input').focus();
+                isOpenLoginDiv = true;
+                break;
+            case 'quit':
+                $('#userInfo_div').fadeOut();
+                $('#nav_headportrait').hide();
+                $('#nav_login').show();
+                break;
         }
     });
 

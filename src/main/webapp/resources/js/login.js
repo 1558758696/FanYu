@@ -1,10 +1,7 @@
 $(document).ready(function () {
-    $('#somedialog').click(function (e) {
+    $('#float_div').click(function (e) {
         switch ($(e.target).attr('id')) {
             case 'signin_Tit':
-                $('#signin_div').fadeOut();
-                $('#login_div').fadeIn();
-                $('#login_account_input').focus();
                 break;
             case 'signin_account_input':
                 break;
@@ -16,9 +13,6 @@ $(document).ready(function () {
                 signinBtnClick();
                 break;
             case 'login_Tit':
-                $('#signin_div').fadeIn();
-                $('#login_div').fadeOut();
-                $('#signin_account_input').focus();
                 break;
             case 'login_account_input':
                 break;
@@ -35,15 +29,36 @@ $(document).ready(function () {
             case 'login_btn':
                 loginBtnClick();
                 break;
+            case 'alter_Tit':
+                break;
+            case 'alter_account_input':
+                break;
+            case 'alter_pwd_input_one':
+                break;
+            case 'alter_pwd_input_two':
+                break;
+            case 'alter_btn':
+                alterBtnClick();
+                break;
+            case 'float_div':
+                $('#login_div').fadeIn();
+                $('#signin_div').fadeOut();
+                $('#alter_div').fadeOut();
+                $('#float_div').fadeOut(200);
+                break;
             default:
                 isOpenLoginDiv = false;
-                $('#signin_div').fadeOut();
                 $('#login_div').fadeIn();
+                $('#signin_div').fadeOut();
+                $('#alter_div').fadeOut();
                 $('#login_account_input').val('');
                 $('#login_pwd_input').val('');
                 $('#signin_account_input').val('');
                 $('#signin_pwd_input_one').val('');
                 $('#signin_pwd_input_two').val('');
+                $('#alter_account_input').val('');
+                $('#alter_pwd_input_one').val('');
+                $('#alter_pwd_input_two').val('');
         }
     });
 
@@ -55,6 +70,9 @@ $(document).ready(function () {
                 }
                 if ($("#login_div").is(":visible")) {
                     loginBtnClick();
+                }
+                if ($("#alter_div").is(":visible")) {
+                    alterBtnClick();
                 }
             } else {
                 var search1 = $('#search').is(':focus');

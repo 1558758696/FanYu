@@ -31,6 +31,7 @@ function signinBtnAjax(object) {
     });
 }
 
+
 function loginBtnAjax(object) {
     $.ajax({
         type: "post",
@@ -49,6 +50,27 @@ function loginBtnAjax(object) {
             } else if (data.loginState === 'fail') {
                 showDialog(data.info);
             }
+        },
+        fail: function (err, status) {
+            console.log(err);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            showDialog('连接服务器失败');
+        }
+    });
+}
+
+function alterBtnAjax(object) {
+    $.ajax({
+        type: "post",
+        url: FanYu.url + '/register.do',
+        dataType: "json",
+        data: {
+            'userInfo': object
+        },
+        timeout: 5000,
+        success: function (data, status) {
+            
         },
         fail: function (err, status) {
             console.log(err);
