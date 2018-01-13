@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//用户控制类
 @Controller
 @RequestMapping("/user")
 public class UserController {
