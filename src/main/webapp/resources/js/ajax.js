@@ -69,11 +69,11 @@ function updateImage(object) {
         },
         timeout: 5000,
         success: function (data, status) {
-            if (data.updateState === 'success') {
+            if (data.updateHeadPortraitState === 'success') {
                 $('#nav_headportrait').attr('src', data.userHeadPortrait);
                 sessionStorage.setItem('headPortrait', data.userHeadPortrait);
                 showDialog(data.info);
-            } else if (data.updateState === 'fail') {
+            } else if (data.updateHeadPortraitState === 'fail') {
                 showDialog(data.info);
             }
         },
