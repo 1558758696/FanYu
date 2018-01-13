@@ -1,29 +1,3 @@
-function loginBtnAjax(account, pwd) {
-    $.ajax({
-        type: "post",
-        url: FanYu.url + '/login.do?userName=' + account + '&passWord=' + pwd,
-        dataType: "json",
-        timeout: 5000,
-        success: function (data, status) {
-            console.info(data);
-            if (data.loginState === 'success') {
-                showDialog(data.info);
-                sessionStorage.setItem('userId', data.userId);
-                sessionStorage.setItem('headPortrait', data.headPortrait);
-                window.location.reload();
-            } else if (data.loginState === 'fail') {
-                showDialog(data.info);
-            }
-        },
-        fail: function (err, status) {
-            console.info(err)
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showDialog('连接服务器失败')
-        }
-    });
-}
-
 function signinBtnAjax(account, pwd) {
     $.ajax({
         type: "post",
@@ -45,7 +19,32 @@ function signinBtnAjax(account, pwd) {
             }
         },
         fail: function (err, status) {
-            console.info(err)
+            console.log(err)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            showDialog('连接服务器失败')
+        }
+    });
+}
+
+function loginBtnAjax(account, pwd) {
+    $.ajax({
+        type: "post",
+        url: FanYu.url + '/login.do?userName=' + account + '&passWord=' + pwd,
+        dataType: "json",
+        timeout: 5000,
+        success: function (data, status) {
+            if (data.loginState === 'success') {
+                showDialog(data.info);
+                sessionStorage.setItem('userId', data.userId);
+                sessionStorage.setItem('headPortrait', data.headPortrait);
+                window.location.reload();
+            } else if (data.loginState === 'fail') {
+                showDialog(data.info);
+            }
+        },
+        fail: function (err, status) {
+            console.log(err)
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败')
@@ -54,17 +53,22 @@ function signinBtnAjax(account, pwd) {
 }
 
 function updateImage(object) {
-    console.info(object.length);
     $.ajax({
         type: "post",
-        url: 'user/test.do',
-        dataType: "text",
+        url: FanYu.url + '/update.do',
+        dataType: "json",
         data: {
-            'type':object
+            'userInfo': object
         },
-        timeout:3000,
+        timeout: 3000,
         success: function (data, status) {
-            console.info(data + ":" + status);
+            if (data.updateState === 'success') {
+                $('#nav_headportrait').attr('src', data.userHeadPortrait);
+                sessionStorage.setItem('headPortrait', data.userHeadPortrait);
+                showDialog(data.info);
+            } else if (data.updateState === 'fail') {
+                showDialog(data.info);
+            }
         },
         fail: function (err, status) {
             console.log(err)
@@ -72,26 +76,5 @@ function updateImage(object) {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败')
         }
-
-        /*type: "POST",
-         url: FanYu.url + '/update.do?userInfo=' + object,
-         // contentType: "application/json; charset=utf-8",
-         dataType: "json",
-         timeout: 5000,
-         success: function (data, status) {
-         // console.info(data);
-         /!*if(data.updateState === 'success'){
-         showDialog(data.info);
-         $('#nav_headportrait').attr('src', object.imageInfo);
-         }else if(data.updateState === 'fail'){
-         showDialog(data.info);
-         }*!/
-         },
-         fail: function (err, status) {
-         console.info(err)
-         },
-         error: function (XMLHttpRequest, textStatus, errorThrown) {
-         showDialog('连接服务器失败')
-         }*/
     });
 }

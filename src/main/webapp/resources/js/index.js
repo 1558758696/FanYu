@@ -7,7 +7,7 @@ var vueEdit;
 $(document).ready(function () {
     vueNav = new Vue({
         el: '.navbar-default',
-        data: {navHome: '首页', navClassify: '分类', navCollect: '收藏', navInRegardTo: '关于', navNote: '笔记', navLogin: '登录'}
+        data: {navHome: '首页', navClassify: '分类', navCollect: '收藏', navInRegardTo: '关于', navNote: '随心记', navLogin: '登录'}
     });
     vueLogin = new Vue({
         el: '#somedialog',
@@ -29,8 +29,3 @@ $(window).resize(function () {
 $(window).scroll(function () {
     scrollTopBtn();
 });
-
-
-
-
-

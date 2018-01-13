@@ -16,10 +16,11 @@ function init() {
     FanYu.ImageReader.onload = function (oFREvent) {
 
         var obj = {
-            "id": '11',
-            "headportrait": oFREvent.target.result
+            "userId": sessionStorage.getItem('userId'),
+            "userHeadPortrait": oFREvent.target.result
         };
         var encoded = $.toJSON(obj);
+        showDialog('正在更新...');
         updateImage(encoded);
     };
 }

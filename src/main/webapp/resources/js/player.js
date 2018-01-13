@@ -2,7 +2,7 @@
  * Created by Shaomg on 2018/1/4.
  */
 var FanYu = {
-    url: 'http://192.168.1.16:8080/FanYu/user',
+    url: 'http://localhost:8080/FanYu/user',
     NavHome: '首页',
     NavClassify: '分类',
     NavCollect: '我的收藏',

@@ -13,7 +13,7 @@ $(document).ready(function () {
     if (userId != null) {
         $('#nav_login').hide();
         $('#nav_headportrait').show();
-        // $('#nav_headportrait').attr('src',sessionStorage.getItem('headPortrait'));
+        $('#nav_headportrait').attr('src',sessionStorage.getItem('headPortrait'));
     } else {
         $('#nav_headportrait').hide();
         $('#nav_login').show();
