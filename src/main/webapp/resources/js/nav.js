@@ -1,3 +1,4 @@
+var isOpenLoginDiv = false;
 $(document).ready(function () {
 
     var isOpenEdit = true;
@@ -36,6 +37,8 @@ $(document).ready(function () {
                 showDialog('收藏');
                 break;
             case 'nav_login':
+                console.info('denglu');
+                isOpenLoginDiv = true;
                 break;
             case 'nav_note':
                 if (isOpenEdit) {
@@ -64,18 +67,6 @@ $(document).ready(function () {
                 break
         }
     });
-
-    document.onkeydown = function () {
-        if (event.keyCode == 13) {
-            var search1 = $('#search').is(':focus');
-            var search2 = $('#search2').is(':focus');
-            if (search1) {
-                searchBlog();
-            } else if (search2) {
-                searchBlog();
-            }
-        }
-    };
 
     $('#top').click(function () {
         scrollTop();

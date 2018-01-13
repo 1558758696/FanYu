@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#somedialog').click(function (e) {
-        switch ($(e.target).attr('id')){
+        switch ($(e.target).attr('id')) {
             case 'signin_Tit':
                 $('#signin_div').fadeOut();
                 $('#login_div').fadeIn();
@@ -33,6 +33,7 @@ $(document).ready(function () {
                 loginBtnClick();
                 break;
             default:
+                isOpenLoginDiv = false;
                 $('#signin_div').fadeOut();
                 $('#login_div').fadeIn();
                 $('#login_account_input').val('');
@@ -42,4 +43,25 @@ $(document).ready(function () {
                 $('#signin_pwd_input_two').val('');
         }
     });
+
+    document.onkeydown = function () {
+        if (event.keyCode == 13) {
+            if (isOpenLoginDiv) {
+                if ($("#signin_div").is(":visible")) {
+                    signinBtnClick();
+                }
+                if ($("#login_div").is(":visible")) {
+                    loginBtnClick();
+                }
+            } else {
+                var search1 = $('#search').is(':focus');
+                var search2 = $('#search2').is(':focus');
+                if (search1) {
+                    searchBlog();
+                } else if (search2) {
+                    searchBlog();
+                }
+            }
+        }
+    };
 });
