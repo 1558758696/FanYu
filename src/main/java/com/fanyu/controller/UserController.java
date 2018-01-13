@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//用户控制类
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -91,7 +92,7 @@ public class UserController {
 
     @RequestMapping("/updateHeadPortrait")
     @ResponseBody
-    public JSONObject requestJson(HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject updateHeadPortrait(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
         String userInfo = request.getParameter("userInfo");
@@ -102,15 +103,36 @@ public class UserController {
         int i = this.userService.updateUser(user);
         JSONObject jsonRe = new JSONObject();
         if (i == 1) {
-            jsonRe.put("updateState", "success");
+            jsonRe.put("updateHeadPortraitState", "success");
             jsonRe.put("info", "更新成功");
             jsonRe.put("userHeadPortrait", new String(user.getHeadportrait()));
             return jsonRe;
         } else {
-            jsonRe.put("updateState", "fail");
+            jsonRe.put("updateHeadPortraitState", "fail");
             jsonRe.put("info", "更新失败");
             return jsonRe;
         }
     }
-
+    @RequestMapping("/updatePassWord")
+    @ResponseBody
+    public JSONObject updatePassWord(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setCharacterEncoding("utf-8");
+        String userInfo = request.getParameter("userInfo");
+        JSONObject json = JSONObject.parseObject(userInfo);
+        User user = new User();
+        user.setId(Integer.parseInt(json.getString("userId")));
+        user.setPassword(json.getString("passWord"));
+        int i = this.userService.updateUser(user);
+        JSONObject jsonRe = new JSONObject();
+        if (i == 1) {
+            jsonRe.put("updatePassWordState", "success");
+            jsonRe.put("info", "更新成功");
+            return jsonRe;
+        } else {
+            jsonRe.put("updatePassWordState", "fail");
+            jsonRe.put("info", "更新失败");
+            return jsonRe;
+        }
+    }
 }
