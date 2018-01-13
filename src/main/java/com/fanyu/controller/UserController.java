@@ -4,6 +4,7 @@ package com.fanyu.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyu.model.User;
 import com.fanyu.service.IUserService;
+import com.fanyu.utils.Img2Base64Util;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,16 +31,21 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public JSONObject register(String userName, String passWord, HttpServletResponse response) {
+    public JSONObject register(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
-        User user = this.userService.getUserByUserName(userName);
+        String userInfo = request.getParameter("userInfo");
+        JSONObject jsonRq = JSONObject.parseObject(userInfo);
+        User user = this.userService.getUserByUserName(jsonRq.getString("userName"));
+        String dir = request.getServletContext().getRealPath("/");
         int i = 0;
         JSONObject json = new JSONObject();
         if (user == null) {
             User userNew = new User();
-            userNew.setUsername(userName);
-            userNew.setPassword(passWord);
+            userNew.setUsername(jsonRq.getString("userName"));
+            userNew.setPassword(jsonRq.getString("passWord"));
+            String imgStr = "data:image/jpg;base64,"+Img2Base64Util.getImgStr(dir + "resources/img/qw.jpg");
+            userNew.setHeadportrait(imgStr.getBytes());
             i = this.userService.insertUser(userNew);
 
         }
@@ -50,7 +56,7 @@ public class UserController {
             return json;
         } else {
             json.put("registerState", "fail");
-            json.put("info", "注册失败");
+            json.put("info", "该用户已存在");
             return json;
         }
 
@@ -61,16 +67,16 @@ public class UserController {
     public JSONObject login(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
-        String userName = request.getParameter("userName");
-        String passWord = request.getParameter("passWord");
+        String userInfo = request.getParameter("userInfo");
+        JSONObject jsonRq = JSONObject.parseObject(userInfo);
         JSONObject json = new JSONObject();
-        User user = this.userService.getUserByUserName(userName);
+        User user = this.userService.getUserByUserName(jsonRq.getString("userName"));
         if (user == null) {
             json.put("loginState", "fail");
             json.put("info", "该用户不存在");
             return json;
         }
-        if (passWord.equals(user.getPassword())) {
+        if (jsonRq.getString("passWord").equals(user.getPassword())) {
             json.put("loginState", "success");
             json.put("info", "登录成功");
             json.put("userId", user.getId());
@@ -83,22 +89,22 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/updateHeadPortrait")
     @ResponseBody
-    public  JSONObject requestJson(HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject requestJson(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
-        String userInfo =request.getParameter("userInfo");
+        String userInfo = request.getParameter("userInfo");
         JSONObject json = JSONObject.parseObject(userInfo);
-        User user =new User();
-        user.setId(Integer.parseInt(json.get("userId").toString()));
-        user.setHeadportrait( json.get("userHeadPortrait").toString().getBytes());
-        int i=this.userService.updateUser(user);
+        User user = new User();
+        user.setId(Integer.parseInt(json.getString("userId")));
+        user.setHeadportrait(json.getString("userHeadPortrait").getBytes());
+        int i = this.userService.updateUser(user);
         JSONObject jsonRe = new JSONObject();
         if (i == 1) {
             jsonRe.put("updateState", "success");
             jsonRe.put("info", "更新成功");
-            jsonRe.put("userHeadPortrait",new String(user.getHeadportrait()));
+            jsonRe.put("userHeadPortrait", new String(user.getHeadportrait()));
             return jsonRe;
         } else {
             jsonRe.put("updateState", "fail");

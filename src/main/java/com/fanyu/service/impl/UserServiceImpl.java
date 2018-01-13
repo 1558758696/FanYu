@@ -21,7 +21,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int insertUser(User user) {
-        return this.userDao.insert(user);
+        return this.userDao.insertSelective(user);
     }
 
     @Override
