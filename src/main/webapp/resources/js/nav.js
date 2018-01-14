@@ -5,15 +5,23 @@ $(document).ready(function () {
     var isOpenScreen = true;
 
     var userId = sessionStorage.getItem('userId');
-    if (userId != null) {
-        $('#nav_login').hide();
-        $('#nav_headportrait').show();
-        $('#nav_headportrait').attr('src',sessionStorage.getItem('headPortrait'));
-    } else {
+    if (userId !== null) {
+        if(userId == 'quit'){
+            $('#nav_headportrait').hide();
+            $('#nav_note').hide();
+            $('#nav_login').show();
+        }else{
+            $('#nav_login').hide();
+            $('#nav_note').show();
+            $('#nav_headportrait').show();
+            $('#nav_headportrait').attr('src', sessionStorage.getItem('headPortrait')); 
+        }
+    } else{
         $('#nav_headportrait').hide();
+        $('#nav_note').hide();
         $('#nav_login').show();
     }
-
+    
     $('.container-fluid').on('click', '#nav_home,#nav_classify,#nav_collect,.search_btn,#nav_login,#nav_headportrait,#nav_note', function () {
         switch ($(this).attr('id')) {
             case 'nav_home':
@@ -62,7 +70,7 @@ $(document).ready(function () {
                     $('#userInfo_div').show(400);
                     $('#userInfo_div_ul').fadeIn();
 
-                }else{
+                } else {
                     $('#userInfo_div_ul').fadeOut(50);
                     $('#userInfo_div').hide(400);
                 }
@@ -74,8 +82,8 @@ $(document).ready(function () {
         }
     });
 
-    $('#userInfo_div').on('click','#alter_headPortrait,#alter_password,#quit',function () {
-        switch ($(this).attr('id')){
+    $('#userInfo_div').on('click', '#alter_headPortrait,#alter_password,#quit', function () {
+        switch ($(this).attr('id')) {
             case 'alter_headPortrait':
                 $("#uploadImage").trigger("click");
                 break;
@@ -85,13 +93,12 @@ $(document).ready(function () {
                 $('#signin_div').fadeOut();
                 $('#alter_div').fadeIn();
                 $('#alter_account_input').val(sessionStorage.getItem('userName'));
-                $('#alter_account_input').focus();
+                $('#alter_pwd_input_one').focus();
                 isOpenLoginDiv = true;
                 break;
             case 'quit':
-                $('#userInfo_div').fadeOut();
-                $('#nav_headportrait').hide();
-                $('#nav_login').show();
+                sessionStorage.setItem('userId', 'quit');
+                window.location.reload();
                 break;
         }
     });
