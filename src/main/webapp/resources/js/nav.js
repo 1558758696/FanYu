@@ -6,22 +6,16 @@ $(document).ready(function () {
 
     var userId = sessionStorage.getItem('userId');
     if (userId !== null) {
-        if(userId == 'quit'){
-            $('#nav_headportrait').hide();
-            $('#nav_note').hide();
-            $('#nav_login').show();
-        }else{
-            $('#nav_login').hide();
-            $('#nav_note').show();
-            $('#nav_headportrait').show();
-            $('#nav_headportrait').attr('src', sessionStorage.getItem('headPortrait')); 
-        }
-    } else{
+        $('#nav_login').hide();
+        $('#nav_note').show();
+        $('#nav_headportrait').show();
+        $('#nav_headportrait').attr('src', sessionStorage.getItem('headPortrait'));
+    } else {
         $('#nav_headportrait').hide();
         $('#nav_note').hide();
         $('#nav_login').show();
     }
-    
+
     $('.container-fluid').on('click', '#nav_home,#nav_classify,#nav_collect,.search_btn,#nav_login,#nav_headportrait,#nav_note', function () {
         switch ($(this).attr('id')) {
             case 'nav_home':
@@ -97,7 +91,7 @@ $(document).ready(function () {
                 isOpenLoginDiv = true;
                 break;
             case 'quit':
-                sessionStorage.setItem('userId', 'quit');
+                sessionStorage.removeItem('userId');
                 window.location.reload();
                 break;
         }
