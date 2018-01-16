@@ -1,0 +1,97 @@
+html body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#manage_content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%
+}
+
+#manageLogin_div {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    background: white;
+    margin: 12% auto;
+}
+
+#manageLogin_Tit {
+    position: relative;
+    width: 230px;
+    height: 45px;
+    background: none;
+    text-align: center;
+    margin: 10px 25px;
+    font-size: 18px;
+    line-height: 45px;
+    cursor: pointer;
+    top: 10px;
+}
+
+.account_input {
+    outline: none;
+    color: black;
+    width: 220px;
+    height: 45px;
+    margin: 10px 25px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding-left: 10px;
+}
+
+#manageLogin_btn {
+    outline: none;
+    width: 230px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.74);
+    color: white;
+    margin: 10px 25px;
+    border: 0
+}
+
+#content {
+    display: none;
+    position: absolute;
+    background: #ffc0cb;
+    width: 100%;
+    height: 100%;
+    font-size: 16px
+}
+
+#left_content {
+    position: absolute;
+    width: 180px;
+    height: 100%;
+    background: white
+}
+
+.manage_item_one {
+    width: 170px;
+    height: 40px;
+    background: #bebebe;
+    cursor: pointer;
+    line-height: 40px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.manage_item_two{
+    width: 150px;
+    height: 40px;
+    background: rgba(190, 190, 190, 0.5);
+    cursor: pointer;
+    line-height: 40px;
+    padding-left: 30px;
+    /*margin-top: 10px;*/
+}
+
+#right_content {
+    position: absolute;
+    font-size: 16px;
+    width: auto;
+    height: 100%;
+    left: 180px;
+}

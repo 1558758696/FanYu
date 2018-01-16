@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="resources/css/manage.css">
+    <script src="resources/js/js/jquery-1.11.0.min.js"></script>
+    <script src="resources/js/manage.js"></script>
+</head>
+<body>
+<div id="manage_content" style="display: block; background-image: url('resources/img/image.jpg')">
+    <div id="manageLogin_div">
+        <div id="manageLogin_Tit">- 管理员登录 -</div>
+        <input id="manageLogin_account_input" class="account_input" type="text" placeholder="请输入账号">
+        <input id="manageLogin_pwd_input" class="account_input" type="password" placeholder="请输入密码">
+        <button id="manageLogin_btn">立即登录</button>
+    </div>
+</div>
+<div id="content">
+    <div id="left_content">
+        <ul style="list-style: none;margin: 0;padding: 0">
+            <li class="li">
+                <div class="manage_item_one">首页</div>
+            </li>
+            <li>
+                <div class="manage_item_one">用户管理</div>
+                <ul style="list-style: none;display: none;margin: 0;padding: 0;">
+                    <li><div class="manage_item_two">账号管理</div></li>
+                    <li><div class="manage_item_two">博客分类</div></li>
+                </ul>
+            </li>
+            <li>
+                <div class="manage_item_one">用户管理</div>
+                <ul style="list-style: none;display: none;margin: 0;padding: 0;">
+                    <li><div class="manage_item_two">账号管理</div></li>
+                    <li><div class="manage_item_two">博客分类</div></li>
+                </ul>
+            </li>
+            <li>
+                <div class="manage_item_one">用户管理</div>
+                <ul style="list-style: none;display: none;margin: 0;padding: 0;">
+                    <li><div class="manage_item_two">账号管理</div></li>
+                    <li><div class="manage_item_two">博客分类</div></li>
+                </ul>
+            </li><li>
+            <div class="manage_item_one">用户管理</div>
+            <ul style="list-style: none;display: none;margin: 0;padding: 0;">
+                <li><div class="manage_item_two">账号管理</div></li>
+                <li><div class="manage_item_two">博客分类</div></li>
+            </ul>
+        </li>
+
+        </ul>
+    </div>
+    <div id="right_content">
+        你好世界
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#left_content>ul>li>div").click(function(){
+            if($(this).parent().find('ul').is(':hidden')){
+                $(this).parent().find("ul").show(100);
+            }else{
+                $(this).parent().find("ul").hide(100);
+            }
+        });
+    });
+</script>
+</body>
+</html>
