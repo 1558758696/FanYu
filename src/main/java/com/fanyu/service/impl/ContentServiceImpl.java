@@ -17,4 +17,9 @@ public class ContentServiceImpl implements IContentService {
     public int insertContent(Content content) {
         return this.contentDao.insertSelective(content);
     }
+
+    @Override
+    public Content selectById(Integer id) {
+        return this.contentDao.selectByPrimaryKey(id);
+    }
 }

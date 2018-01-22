@@ -80,9 +80,9 @@
         <error-code>405</error-code>
         <location>/WEB-INF/errorpage/405.jsp</location>
     </error-page>
-    <error-page>
-        <!-- 内部错误 -->
-        <error-code>500</error-code>
-        <location>/WEB-INF/errorpage/500.jsp</location>
-    </error-page>
+    <!--<error-page>-->
+        <!--&lt;!&ndash; 内部错误 &ndash;&gt;-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/WEB-INF/errorpage/500.jsp</location>-->
+    <!--</error-page>-->
 </web-app>

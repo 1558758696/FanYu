@@ -23,6 +23,8 @@ public class Blog {
 
     private Date releasedate;
 
+    private User user;
+
     public Integer getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class Blog {
 
     public void setReleasedate(Date releasedate) {
         this.releasedate = releasedate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
