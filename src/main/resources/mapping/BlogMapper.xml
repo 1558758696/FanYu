@@ -10,8 +10,23 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="readcount" property="readcount" jdbcType="INTEGER" />
     <result column="comment" property="comment" jdbcType="VARCHAR" />
-    <result column="modifydate" property="modifydate" jdbcType="DATE" />
-    <result column="releasedate" property="releasedate" jdbcType="DATE" />
+    <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="releasedate" property="releasedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ViewResultMap" type="com.fanyu.model.Blog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="state_id" property="stateId" jdbcType="INTEGER" />
+    <result column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="readcount" property="readcount" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="releasedate" property="releasedate" jdbcType="TIMESTAMP" />
+    <association property="user" javaType="com.fanyu.model.User">
+      <id property="id" column="id"/>
+      <result property="username" column="username"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, category_id, state_id, content_id, title, readcount, comment, modifydate, 
@@ -22,6 +37,20 @@
     <include refid="Base_Column_List" />
     from blog
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" resultMap="ViewResultMap">
+      SELECT b.id, b.content_id, b.title, b.readcount, b.comment, b.modifydate, b.releasedate, u.username
+      FROM blog b where user_id=#{userId}
+      LEFT JOIN user u ON b.user_id = u.id
+      ORDER BY id DESC
+      LIMIT #{offset},#{limit}
+  </select>
+  <select id="selectByLimit" resultMap="ViewResultMap">
+    SELECT b.id, b.content_id, b.title, b.readcount, b.comment, b.modifydate, b.releasedate, u.username
+    FROM blog b
+	LEFT JOIN user u ON b.user_id = u.id
+    ORDER BY id DESC
+    LIMIT #{offset},#{limit}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog
@@ -34,8 +63,8 @@
       releasedate)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
       #{stateId,jdbcType=INTEGER}, #{contentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{readcount,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{modifydate,jdbcType=DATE}, 
-      #{releasedate,jdbcType=DATE})
+      #{readcount,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{releasedate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.fanyu.model.Blog" >
     insert into blog
@@ -97,10 +126,10 @@
         #{comment,jdbcType=VARCHAR},
       </if>
       <if test="modifydate != null" >
-        #{modifydate,jdbcType=DATE},
+        #{modifydate,jdbcType=TIMESTAMP},
       </if>
       <if test="releasedate != null" >
-        #{releasedate,jdbcType=DATE},
+        #{releasedate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -129,10 +158,10 @@
         comment = #{comment,jdbcType=VARCHAR},
       </if>
       <if test="modifydate != null" >
-        modifydate = #{modifydate,jdbcType=DATE},
+        modifydate = #{modifydate,jdbcType=TIMESTAMP},
       </if>
       <if test="releasedate != null" >
-        releasedate = #{releasedate,jdbcType=DATE},
+        releasedate = #{releasedate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -146,8 +175,8 @@
       title = #{title,jdbcType=VARCHAR},
       readcount = #{readcount,jdbcType=INTEGER},
       comment = #{comment,jdbcType=VARCHAR},
-      modifydate = #{modifydate,jdbcType=DATE},
-      releasedate = #{releasedate,jdbcType=DATE}
+      modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      releasedate = #{releasedate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

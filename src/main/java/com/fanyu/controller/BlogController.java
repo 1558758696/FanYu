@@ -1,5 +1,6 @@
 package com.fanyu.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyu.model.Blog;
 import com.fanyu.model.Content;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +42,7 @@ public class BlogController {
         content.setContent(blogJson.getString("content"));
         int contentFlag = this.contentService.insertContent(content);
         System.out.println(content.getId());
-        int i=0;
+        int i = 0;
         if (contentFlag == 1) {
             Blog blog = new Blog();
             blog.setUserId(blogJson.getInteger("userId"));
@@ -62,4 +66,51 @@ public class BlogController {
             return json;
         }
     }
+
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public JSONObject selectById(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setCharacterEncoding("utf-8");
+        int blogId = Integer.parseInt(request.getParameter("blogId"));
+        Blog blog = this.blogService.selectById(blogId);
+        Content content = this.contentService.selectById(blog.getContentId());
+        JSONObject json = new JSONObject();
+        json.put("content", content.getContent());
+        json.put("title", blog.getTitle());
+        return json;
+    }
+
+    @RequestMapping("/selectByLimit")
+    @ResponseBody
+    public List<JSON> selectByLimit(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setCharacterEncoding("utf-8");
+        String blogInfo = request.getParameter("blogInfo");
+        JSONObject blogJson = JSONObject.parseObject(blogInfo);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<JSON> list = new ArrayList<>();
+        List<Blog> blog = this.blogService.selectByLimit(blogJson.getInteger("start"), blogJson.getInteger("end"));
+        for (int i = 0; i < blog.size(); i++) {
+            JSONObject json = new JSONObject();
+            json.put("title", blog.get(i).getTitle());
+            json.put("user", blog.get(i).getUser().getUsername());
+            String dateString = formatter.format(blog.get(i).getModifydate());
+            json.put("date", dateString);
+            json.put("read", blog.get(i).getReadcount());
+            json.put("comment", blog.get(i).getComment());
+            json.put("category", blog.get(i).getCategoryId());
+            json.put("blogId", blog.get(i).getId());
+            list.add(json);
+
+        }
+        return list;
+    }
+    @RequestMapping("/test")
+    @ResponseBody
+    public void test(){
+        List<Blog> blog =this.blogService.selectByLimit(0,10);
+        System.out.println(blog.get(2).getUser().getUsername());
+     }
+
 }
