@@ -113,7 +113,6 @@ html body {
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     z-index: 100;
-    margin-top: -50px
 }
 
 #float_div_content {
@@ -121,7 +120,7 @@ html body {
     width: 300px;
     height: 350px;
     background: white;
-    margin: 10% auto
+    margin: auto
 }
 
 /*注册*/
@@ -222,7 +221,8 @@ html body {
 #login_btn:hover {
     background: rgba(0, 0, 0, 0.55);
 }
-#alter_btn:hover{
+
+#alter_btn:hover {
     background: rgba(0, 0, 0, 0.55);
 }
 
@@ -315,163 +315,140 @@ html body {
     background: whitesmoke;
 }
 
-/*随心左侧显示列表*/
+/*左侧显示列表*/
 #edit_left_div {
     display: none;
-    position: relative;
-    width: 19.5%;
+    position: absolute;
+    width: 17.5%;
     height: 100%;
     overflow-y: auto;
 }
 
-/*Tit*/
-#edit_left_Tit_div {
+/*个人博客条目*/
+#userBlogItem {
     width: 100%;
-    height: 14.5%;
+    background: rgba(245, 245, 245, 0.99);
+    height: auto;
     padding: 10px;
-    overflow: hidden;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-/*Tit随心记*/
-#edit_left_top_h1 {
-    height: 50%;
-    line-height: 50px;
-    margin-left: 20px;
+#userBlogItem:hover {
+    background: rgba(40, 39, 33, 0.16);
+}
+
+#userBlogItem:hover #userBlogItem_Delete {
+    display: block;
+}
+
+#userBlogItem_top {
+    height: 30px;
+    line-height: 30px;
     font-size: 18px;
-
+    font-weight: bold
 }
 
-/*Tit记录生活的点点滴滴*/
-#edit_left_top_h3 {
-    height: 50%;
-    margin-left: 40px;
-    line-height: 50px;
+#userBlogItem_Tit {
+    position: absolute;
+    display: inline-block;
+    width: 50%;
+    height: 30px;
+    background: none;
+    overflow: hidden
+}
+
+#userBlogItem_Btn {
+    height: 30px;
+    left: 50%;
+    position: absolute;
+    display: inline-block;
+    width: 50%;
+    background: none;
+    overflow: hidden
+}
+
+#userBlogItem_Delete {
+    display: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    /*float: right;*/
+    right: 10px;
+    position: absolute;
+    margin: 4px;
+    width: 22px;
+    height: 22px;
+    background-size: 100% 100%;
+    opacity: 0.8;
+    background-image: url("../img/delete.png");
+}
+
+#userBlogItem_Delete:hover {
+    opacity: 0.3;
+}
+
+#userBlogItem_Time {
+    font-size: 12px
+}
+
+#userBlogItem_Content {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
     font-size: 14px;
-}
-
-/*左侧分割线*/
-#edit_left_cutoffrule {
-    width: 100%;
-    height: 0.5%;
-    background: rgba(40, 39, 33, 0.16)
-}
-
-/*左侧博客列表*/
-#edit_left_bloglist {
-    width: 100%;
-    height: 85%;
-    background: none
+    overflow: hidden
 }
 
 /*分割线*/
 #edit_mid_cutoffrule {
-    display: none;
-    position: relative;
+    position: absolute;
     width: 0.5%;
     height: 100%;
-    top: -100%;
-    left: 19.5%;
+    left: 17.5%;
+    display: none;
     background: rgba(40, 39, 33, 0.16);
 }
 
-/*随心右侧编辑*/
+/*编辑器*/
 #edit_right_div {
-    position: relative;
-    width: 80%;
-    height: 100%;
-    top: -200%;
-    left: 20%
-}
-
-/*右侧编辑标题*/
-#edit_right_Tit_div {
-    position: relative;
-    width: 100%;
-    height: 9%;
-    background: whitesmoke;
-}
-
-/*文件名*/
-#edit_right_Tit_left_div {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: none
-}
-
-/*文件名input*/
-#edit_right_Tit_input {
-    position: relative;
-    width: 100%;
-    height: 60%;
-    top: 20%;
-    font-size: 17px;
-    text-align: center;
-    border: 0;
-    outline: none;
-    color: black;
-    border-bottom: 1px solid rgba(40, 39, 33, 0.16);
-    background: transparent;
-}
-
-/*保存发布框*/
-#edit_right_Tit_right_div {
     position: absolute;
-    width: 90px;
-    height: 30px;
-    right: 3%;
-    top: 1.5%;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 30px;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+#edit_savedetails_div:hover {
+    opacity: 1;
+}
+
+#edit_save_Btn {
+    position: absolute;
+    display: none;
     cursor: pointer;
+    color: rgba(69, 69, 69, 0.87);
 }
 
-/*保存*/
-#edit_save {
-    width: 44.5px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    background: rgba(0, 0, 0, 0.19);
-}
-
-#edit_cutoffrule {
-    width: 1px;
-    height: 30px;
-    margin-left: 45.5px;
-    margin-top: -30px;
-    background: transparent;
-    opacity: 0.6;
-}
-
-/*发布*/
-#edit_issue {
-    width: 44.5px;
-    height: 30px;
-    margin-left: 45.5px;
-    margin-top: -30px;
-    line-height: 30px;
-    text-align: center;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    background: rgba(0, 0, 0, 0.19);
-}
-
-#edit_save:hover {
-    opacity: 0.7;
-}
-
-#edit_issue:hover {
-    opacity: 0.7;
+#edit_saveInfo_div {
+    position: relative;
+    width: 90%;
+    height: 60px;
+    /*display: none;*/
+    margin-left: 5%;
+    margin-top: -60px;
+    z-index: 10;
+    background: rgb(221, 221, 221);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    /*padding: 10px;*/
 }
 
 /*iframe 编辑*/
 #edit {
     width: 100%;
-    height: 91%;
+    height: 100%;
     border: 0;
 }
 
@@ -506,6 +483,7 @@ html body {
 #content_left_item_classify {
     top: -30px;
     position: relative;
+    cursor: pointer;
 }
 
 /*博客底部作者 时间等*/
@@ -538,6 +516,7 @@ html body {
 /*收藏*/
 #collect:hover {
     opacity: 0.7;
+    cursor: pointer;
 }
 
 /*右侧*/
@@ -581,6 +560,125 @@ html body {
     top: -14px;
     font-size: 16px;
     cursor: pointer;
+}
+
+#edit_saveInfo_content {
+    width: 99%;
+    height: 100%;
+    background: none;
+    margin: auto;
+}
+
+#edit_text {
+    background: #e7e7e7;
+    outline: none;
+    border: 0;
+    font-size: 16px;
+    text-align: center;
+    width: 20%;
+    height: 40px
+}
+
+#edit_classify {
+    position: absolute;
+    width: 65.5%;
+    height: 40px;
+    background: #e7e7e7;
+    overflow-y: auto;
+}
+
+#edit_classify_ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.edit_classify_ul_li {
+    position: relative;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.edit_classify_ul_li div {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #a1a1a1;
+    margin-top: 5px;
+    cursor: pointer;
+    background: white;
+}
+
+#edit_Btn_div1 {
+    position: absolute;
+    width: 10%;
+    height: 40px;
+    left: 89.5%
+}
+
+#edit_Btn_div2 {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    top: 2.5px;
+    background: darkgrey;
+    border-radius: 20px
+}
+
+#edit_upBtn {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    width: 50px;
+    height: 12px;
+    background: rgb(221, 221, 221);
+    top: -12px;
+    line-height: 10px;
+}
+
+#edit_upBtn:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+#edit_upBtn button {
+    background-size: 100% 100%;
+    background: transparent;
+    border: 0;
+    width: 16px;
+    height: 10px;
+    outline: none;
+    background-image: url('../img/up.png')
+}
+
+.edit_Btn_Item {
+    position: absolute;
+    width: 48%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.edit_Btn_Item:hover {
+    opacity: 0.4;
+}
+
+.edit_Btn_Lin {
+    position: absolute;
+    width: 1%;
+    height: 35px;
+    background: rgba(121, 121, 121, 0.8);
+    left: 49.5%
 }
 
 /*回到顶部*/

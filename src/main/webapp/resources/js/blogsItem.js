@@ -2,18 +2,13 @@
  * Created by Shaomg on 2018/1/8.
  */
 $(document).ready(function () {
-
-    for (var i = 0; i < 14; i++) {
-        addBlogItem(i);
-    }
-    addLastItem('load');
-
     $('#content_left').on('click', '#content_left_item_Tit_span,#author,#collect,#load_item', function () {
         switch ($(this).attr('id')) {
             case 'content_left_item_Tit_span':
-                $(this).css('opacity', '0.5');
                 var readBlogs = $(this).text();
-                sessionStorage.setItem('blogsName', readBlogs);
+                setTempInfo('blogsName', readBlogs);
+                setTempInfo('blogId', $(this).parent().parent().find('#blogId').text());
+                console.info(getTempInfo('blogId'));
                 window.open('./blogs.html');
                 break;
             case 'author':

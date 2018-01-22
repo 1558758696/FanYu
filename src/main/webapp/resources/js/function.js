@@ -4,19 +4,17 @@
 
 var isLess = true;
 var isGreater = true;
-
 function init() {
     FanYu.diaLog = new $.zui.Messager();
     FanYu.ImageReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
     FanYu.ImageReader.onload = function (oFREvent) {
 
         var userInfo = {
-            "userId": sessionStorage.getItem('userId'),
+            "userId": getTempInfo('userId'),
             "userHeadPortrait": oFREvent.target.result
         };
         var object = $.toJSON(userInfo);
         updateImage(object);
-        showDialog('正在更新...');
     };
 }
 
@@ -34,7 +32,6 @@ function loginBtnClick() {
         };
         var object = $.toJSON(userInfo);
         loginBtnAjax(object);
-        showDialog('正在登录...');
     }
 }
 
@@ -59,7 +56,6 @@ function signinBtnClick() {
         };
         var object = $.toJSON(userInfo);
         signinBtnAjax(object);
-        showDialog('正在注册...');
     }
 }
 
@@ -77,13 +73,16 @@ function alterBtnClick() {
         showDialog('密码应为6~22位');
     } else {
         var userInfo = {
-            "userId": sessionStorage.getItem('userId'),
+            "userId": getTempInfo('userId'),
             "passWord": pwdone
         };
         var object = $.toJSON(userInfo);
         alterBtnAjax(object);
-        showDialog('正在修改...');
     }
+}
+
+function saveBtnClick(object) {
+    saveBtnAjax(object);
 }
 
 
@@ -92,7 +91,7 @@ var arr2 = ['123', '342', '323', '432', '5243', '9999999+', '66-', '99+'];
 var arr3 = ['说散就散', '365个祝福', '红昭愿', '不配说爱你', '漂洋过海来看你', '你的眼神', '一个人走', '(DJ)拥抱你离去'];
 var arr4 = ['Android', 'Java', 'Html', 'C++', 'Python', 'C#', 'JavaScript', 'C'];
 
-function addBlogItem(i) {
+/*function addBlogItem(i) {
     var html = '<div id="content_left_item" class=\'ui segment\'>' +
         '<div id="content_left_item_Tit">' +
         '<span id="content_left_item_Tit_span">' + arr3[i] + '</span>' +
@@ -115,12 +114,58 @@ function addBlogItem(i) {
         '<span>评论 :</span>' +
         '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
         '</span>' +
+        '<span id="blogId" style="display: none;">' + arr2[i] + '</span>' +
         '<span style="position: absolute; right: 20px;">' +
         '<img id="collect" src="resources/img/collect.png" width="20" title="收藏"/>' +
         '</span>' +
         '</div>' +
         '</div>';
     $('#content_left').append(html);
+}*/
+
+function addBlogItem(i) {
+    console.info(blogList[i].blogId);
+    var html = '<div id="content_left_item" class=\'ui segment\'>' +
+        '<div id="content_left_item_Tit">' +
+        '<span id="content_left_item_Tit_span">' + blogList[i].title + '</span>' +
+        '</div>' +
+        '<div id="content_left_item_classify" class=\'ui pink top right ribbon label\'>' + blogList[i].category + '</div>' +
+        '<div id="content_left_item_bottom">' +
+        '<span class="content_left_item_bottom">' +
+        '<span>作者 :</span>' +
+        '<span id="author" class="content_left_item_bottm_right">' + blogList[i].user + '</span>' +
+        '</span>' +
+        '<span class="content_left_item_bottom">' +
+        '<span>时间 :</span>' +
+        '<span class="content_left_item_bottm_right">' + blogList[i].date + '</span>' +
+        '</span>' +
+        '<span class="content_left_item_bottom">' +
+        '<span>阅读 :</span>' +
+        '<span class="content_left_item_bottm_right">' + blogList[i].read + '</span>' +
+        '</span>' +
+        '<span class="content_left_item_bottom">' +
+        '<span>评论 :</span>' +
+        '<span class="content_left_item_bottm_right">' + blogList[i].comment + '</span>' +
+        '</span>' +
+        '<span id="blogId" style="display: none;">' + blogList[i].blogId + '</span>' +
+        '<span style="position: absolute; right: 20px;">' +
+        '<img id="collect" src="resources/img/collect.png" width="20" title="收藏"/>' +
+        '</span>' +
+        '</div>' +
+        '</div>';
+    $('#content_left').append(html);
+}
+
+var isLoad = true;
+
+function loadMore() {
+    if (isLoad) {
+        isLoad = false;
+        for (var i = 0; i <= 5; i++) {
+            addBlogItem(i);
+        }
+        isLoad = true;
+    }
 }
 
 function addLastItem(state) {
@@ -157,11 +202,52 @@ function searchBlog() {
     }
 }
 
+var isOpen = true;
+
+function userBlogListShow() {
+    if (isOpen) {
+        $("#edit_right_div").animate({
+            left: "+=18%",
+            width: '82%'
+        }, 400);
+        $("#edit_left_div").fadeIn(600);
+        $("#edit_mid_cutoffrule").fadeIn(600);
+        isOpen = false;
+
+        $('#edit_left_div').empty();
+        for (var i = 0; i < 5; i++) {
+            addUserBlogItem(i);
+        }
+    } else {
+        $("#edit_right_div").animate({
+            left: "-=18%",
+            width: '100%'
+        }, 400);
+        $("#edit_left_div").fadeOut(600);
+        $("#edit_mid_cutoffrule").fadeOut(600);
+        isOpen = true;
+    }
+}
+
+function addUserBlogItem(i) {
+    var html = '<div id="userBlogItem">\n' +
+        '<div id="userBlogItem_top">\n' +
+        '<div id="userBlogItem_Tit">' + arr3[i] + '</div>\n' +
+        '<div id="userBlogItem_Btn">\n' +
+        '<button id="userBlogItem_Delete"></button>\n' +
+        '</div>\n' +
+        '</div>\n' +
+        '<div id="userBlogItem_Time">' + getNowFormatDate() + '</div>\n' +
+        '<div id="userBlogItem_Content">我只是一个过客，在你的世界路过...</div>\n' +
+        '</div>';
+
+    $('#edit_left_div').append(html);
+}
+
 function changeWidth() {
     var currentWidth = $('.navbar-default').width();
     if (currentWidth < FanYu.changWidth) {
         if (isLess) {
-
             $("#li_search1").show();
             $("#li_search2").hide();
             $("#li_search2 .search_text").val('');
@@ -172,10 +258,20 @@ function changeWidth() {
             $('.container-fluid').css('margin', '0');
             $('#content').css({'width': '98%', 'margin': '0 1%'});
 
-            $('#edit_left_div').hide();
-            $('#edit_mid_cutoffrule').hide();
-            $('#edit_right_div').css({'width': '100%', 'top': '0', 'left': '0'});
+            $('#float_div_content').css('margin-top', ($('#float_div').height() - 350) / 2);
+            $('#float_div').css('margin-top', '-314.5px');
 
+            if ($('#edit_left_div').is(':visible')) {
+                $('#edit_left_div').hide();
+                $('#edit_mid_cutoffrule').hide();
+                $('#edit_right_div').css({'width': '100%', 'left': '0'});
+            } else {
+                $('#edit_right_div').css({'width': '100%'});
+            }
+
+            if ($('#edit_div').is(':visible')) {
+                iframe.window.blogListBtnHideAndShow(true);
+            }
             isGreater = true;
             isLess = false;
         }
@@ -195,10 +291,22 @@ function changeWidth() {
             $('.container-fluid').css('margin', '0 5%');
             $('#content').css({'width': '90%', 'margin': '0 5%'});
 
+            $('#float_div_content').css('margin-top', ($('#float_div').height() - 350) / 2);
+            $('#float_div').css('margin-top', '-50px');
 
-            $('#edit_left_div').show();
-            $('#edit_mid_cutoffrule').show();
-            $('#edit_right_div').css({'width': '80%', 'top': '-200%', 'left': '20%'});
+
+            if ($('#edit_left_div').is(':visible')) {
+                $('#edit_left_div').show();
+                $('#edit_mid_cutoffrule').show();
+                $('#edit_right_div').css({'width': '82%', 'left': '18%'});
+            } else {
+                $('#edit_right_div').css({'width': '100%'});
+            }
+
+            if ($('#edit_div').is(':visible')) {
+                iframe.window.blogListBtnHideAndShow(false);
+                isOpen = true;
+            }
             isLess = true;
             isGreater = false;
         }
@@ -239,7 +347,8 @@ function getNowFormatDate() {
         strDate = "0" + strDate;
     }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-        + " " + date.getHours() + seperator2 + date.getMinutes();
+        + " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();
     return currentdate;
 }
 
@@ -253,4 +362,16 @@ function loadImageFile() {
         return;
     }
     FanYu.ImageReader.readAsDataURL(oFile);
+}
+
+function setTempInfo(k, v) {
+    sessionStorage.setItem(k, v)
+}
+
+function getTempInfo(k) {
+    return sessionStorage.getItem(k)
+}
+
+function removeTempInfo(k) {
+    sessionStorage.removeItem(k)
 }

@@ -4,12 +4,12 @@ $(document).ready(function () {
     var isOpenEdit = true;
     var isOpenScreen = true;
 
-    var userId = sessionStorage.getItem('userId');
-    if (userId !== null) {
+     var userId = getTempInfo('userId');
+     if (userId !== null) {
         $('#nav_login').hide();
         $('#nav_note').show();
         $('#nav_headportrait').show();
-        $('#nav_headportrait').attr('src', sessionStorage.getItem('headPortrait'));
+        $('#nav_headportrait').attr('src', getTempInfo('headPortrait'));
     } else {
         $('#nav_headportrait').hide();
         $('#nav_note').hide();
@@ -46,11 +46,11 @@ $(document).ready(function () {
                     $('#content_left').fadeOut();
                     $('#content_mid').fadeIn();
 
-                    if (sessionStorage.getItem('Edit') != null) {
-                        iframe.window.setEditContent(sessionStorage.getItem('Edit'))
-                    } else {
+                    if (getTempInfo('Edit') != null) {
+                        iframe.window.setEditContent(getTempInfo('Edit'))
+                    } /*else {
                         iframe.window.setEditContent('<p><br></p>')
-                    }
+                    }*/
                     if (isOpenScreen) {
                         var context = iframe.window.getEditContext();
                         context.invoke('fullscreen.toggle', null, $(".note-icon-arrows-alt"));
@@ -76,8 +76,13 @@ $(document).ready(function () {
         }
     });
 
-    $('#userInfo_div').on('click', '#alter_headPortrait,#alter_password,#quit', function () {
-        switch ($(this).attr('id')) {
+    
+    $("body").click(function(e){
+        switch ($(e.target).attr('id')){
+            case 'nav_headportrait':
+                break;
+            case 'userInfo_div_personal_details':
+                break;
             case 'alter_headPortrait':
                 $("#uploadImage").trigger("click");
                 break;
@@ -86,14 +91,21 @@ $(document).ready(function () {
                 $('#login_div').fadeOut();
                 $('#signin_div').fadeOut();
                 $('#alter_div').fadeIn();
-                $('#alter_account_input').val(sessionStorage.getItem('userName'));
+                $('#alter_account_input').val(getTempInfo('userName'));
                 $('#alter_pwd_input_one').focus();
                 isOpenLoginDiv = true;
                 break;
+            case 'userInfo_div':
+                break;
             case 'quit':
-                sessionStorage.removeItem('userId');
+                removeTempInfo('userId');
                 window.location.reload();
                 break;
+            default:
+                if($('#userInfo_div').is(':visible')){
+                    $('#userInfo_div').fadeOut();
+                }
+                break
         }
     });
 

@@ -7,6 +7,10 @@ function signinBtnAjax(object) {
             'userInfo': object
         },
         timeout: 5000,
+        beforeSend: function () {
+            $('#signin_btn').attr('disabled', "true");
+            $('.pro-bar-container').show();
+        },
         success: function (data, status) {
             if (data.registerState === 'success') {
                 showDialog(data.info);
@@ -27,6 +31,10 @@ function signinBtnAjax(object) {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $('#signin_btn').removeAttr("disabled");
+            $('.pro-bar-container').fadeOut();
         }
     });
 }
@@ -41,12 +49,16 @@ function loginBtnAjax(object) {
             'userInfo': object
         },
         timeout: 5000,
+        beforeSend: function () {
+            $('#login_btn').attr('disabled', "true");
+            $('.pro-bar-container').show();
+        },
         success: function (data, status) {
             if (data.loginState === 'success') {
                 showDialog(data.info);
-                sessionStorage.setItem('userId', data.userId);
-                sessionStorage.setItem('userName', jQuery.parseJSON(object).userName);
-                sessionStorage.setItem('headPortrait', data.headPortrait);
+                setTempInfo('userId',data.userId);
+                setTempInfo('userName', jQuery.parseJSON(object).userName);
+                setTempInfo('headPortrait', data.headPortrait);
                 window.location.reload();
             } else if (data.loginState === 'fail') {
                 showDialog(data.info);
@@ -57,6 +69,10 @@ function loginBtnAjax(object) {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $('#login_btn').removeAttr("disabled");
+            $('.pro-bar-container').fadeOut();
         }
     });
 }
@@ -70,14 +86,19 @@ function alterBtnAjax(object) {
             'userInfo': object
         },
         timeout: 5000,
+        beforeSend: function () {
+            $('#alter_btn').attr('disabled', "true");
+            $('.pro-bar-container').show();
+            showDialog('正在修改...');
+        },
         success: function (data, status) {
-            if(data.updatePassWordState === 'success'){
+            if (data.updatePassWordState === 'success') {
                 showDialog(data.info);
                 $('#login_div').fadeIn();
                 $('#signin_div').fadeOut();
                 $('#alter_div').fadeOut();
                 $('#float_div').fadeOut(200);
-            }else if(data.updatePassWordState === 'fail'){
+            } else if (data.updatePassWordState === 'fail') {
                 showDialog(data.info);
             }
         },
@@ -86,6 +107,10 @@ function alterBtnAjax(object) {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $('#alter_btn').removeAttr("disabled");
+            $('.pro-bar-container').fadeOut();
         }
     });
 }
@@ -99,10 +124,14 @@ function updateImage(object) {
             'userInfo': object
         },
         timeout: 5000,
+        beforeSend: function () {
+            $('.pro-bar-container').show();
+            showDialog('正在更新...');
+        },
         success: function (data, status) {
             if (data.updateHeadPortraitState === 'success') {
                 $('#nav_headportrait').attr('src', data.userHeadPortrait);
-                sessionStorage.setItem('headPortrait', data.userHeadPortrait);
+               setTempInfo('headPortrait', data.userHeadPortrait);
                 showDialog(data.info);
             } else if (data.updateHeadPortraitState === 'fail') {
                 showDialog(data.info);
@@ -113,6 +142,109 @@ function updateImage(object) {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $('.pro-bar-container').fadeOut();
+        }
+    });
+}
+
+function saveBtnAjax(object) {
+    console.info(object)
+    $.ajax({
+        type: "post",
+        url: 'http://192.168.1.16:8080/FanYu/blog/addBlog.do',
+        dataType: "json",
+        data: {
+            'blogInfo': object
+        },
+        timeout: 5000,
+        beforeSend: function () {
+            // $('#edit_save').attr('disabled', "true");
+            // $('.pro-bar-container').show();
+        },
+        success: function (data, status) {
+            showDialog(data.info);
+        },
+        fail: function (err, status) {
+            console.log(err);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            $('#edit_save').removeAttr("disabled");
+            $('.pro-bar-container').fadeOut();
+        }
+    });
+}
+
+
+function readBlogAjax(object) {
+    console.info(object);
+    $.ajax({
+        type: "post",
+        url: 'http://192.168.1.16:8080/FanYu/blog/selectByLimit.do',
+        dataType: "json",
+        data: {
+            'blogInfo': object
+        },
+        // timeout: 5000,
+        beforeSend: function () {
+            console.info(getNowFormatDate());
+        },
+        success: function (data, status) {
+            for (var i = 0; i < data.length; i++) {
+                tempList = {
+                    blogId: data[i].blogId,
+                    category: data[i].category,
+                    comment: data[i].comment,
+                    date: data[i].date,
+                    read: data[i].read,
+                    title: data[i].title,
+                    user: data[i].user
+                };
+                blogList.push(tempList);
+                if (i !== 0) addBlogItem(i);
+            }
+        },
+        fail: function (err, status) {
+            console.log(err);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            console.info(getNowFormatDate());
+        }
+    });
+}
+
+
+function readBlogContentAjax(id) {
+    $.ajax({
+        type: "post",
+        url: 'http://192.168.1.16:8080/FanYu/blog/selectById.do',
+        dataType: "json",
+        data: {
+            'blogId': id
+        },
+        // timeout: 5000,
+        beforeSend: function () {
+
+        },
+        success: function (data, status) {
+            console.info(data);
+            $('#blogContent').append(data.content);
+        },
+        fail: function (err, status) {
+            console.log(err);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            showDialog('连接服务器失败');
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+
         }
     });
 }

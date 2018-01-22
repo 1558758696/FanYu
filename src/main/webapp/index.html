@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>博客 · 笔记</title>
     <link rel="shortcut icon" href="resources/img/tit.png">
+    <link rel="stylesheet" href="resources/progress/pro-bars.min.css">
     <link rel="stylesheet" href="resources/css/css/bootstrap.css">
     <link rel="stylesheet" href="resources/css/css/semantic.css">
     <link rel="stylesheet" href="resources/css/css/popup.css">
     <link rel="stylesheet" href="resources/css/style.css">
     <script src="resources/js/js/vue.min.js"></script>
     <script src="resources/js/js/jquery-1.11.0.min.js"></script>
+    <script src="resources/progress/jquery-ui.min.js "></script>
+    <script src="resources/progress/visible.min.js"></script>
     <script src="resources/js/js/jquery.json-2.3.js"></script>
     <script src="resources/js/js/popup.js"></script>
     <script src="resources/js/js/bootstrap.js"></script>
@@ -24,9 +27,15 @@
     <script src="resources/js/blogsItem.js"></script>
     <script src="resources/js/login.js"></script>
     <script src="resources/js/edit.js"></script>
+    <script src="resources/js/blogList.js"></script>
 
 </head>
 <body>
+<div class="pro-bar-container color-alizarin">
+    <div class="pro-bar bar-100 color-alizarin" data-pro-bar-percent="1000">
+        <div class="pro-bar-candy candy-ltr"></div>
+    </div>
+</div>
 <input id="uploadImage" type="file" name="myPhoto" onchange="loadImageFile();"/>
 <nav class='navbar-default' v-cloak>
     <div class='container-fluid'>
@@ -66,7 +75,8 @@
                 </li>
                 <li style="width: 80px">
                     <div id='nav_login' style="display: block;" class='navbar_item_div'> {{ navLogin }}</div>
-                    <img id="nav_headportrait" style="display: none" class="navbar_item_div" title="头像" src="resources/img/qw.jpg"/>
+                    <img id="nav_headportrait" style="display: none" class="navbar_item_div" title="头像"
+                         src="resources/img/qw.jpg" oncontextmenu="return false" ondragstart="return false"/>
                 </li>
             </ul>
         </div>
@@ -95,7 +105,7 @@
             <button id="signin_btn">{{ signinText }}</button>
         </div>
         <div id="login_div">
-            <div id="login_Tit">{{ loginTit }} </div>
+            <div id="login_Tit">{{ loginTit }}</div>
             <input id="login_account_input" class="account_input" type="text" placeholder="请输入账号">
             <input id="login_pwd_input" class="account_input" type="password" placeholder="请输入密码">
             <div id="no_signin_div">
@@ -105,39 +115,69 @@
             <button id="login_btn">{{ loginText }}</button>
         </div>
         <div id="alter_div">
-           <div id="alter_Tit">{{ alterPwd }}</div>
-           <input id="alter_account_input" class="account_input" type="text" placeholder="请输入账号">
-           <input id="alter_pwd_input_one" class="account_input" type="password" placeholder="请输入新密码">
-           <input id="alter_pwd_input_two" class="account_input" type="password" placeholder="请再次输入新密码">
-           <button id="alter_btn">{{ alterBtn }}</button>
-       </div>
+            <div id="alter_Tit">{{ alterPwd }}</div>
+            <input id="alter_account_input" class="account_input" type="text" placeholder="请输入账号">
+            <input id="alter_pwd_input_one" class="account_input" type="password" placeholder="请输入新密码">
+            <input id="alter_pwd_input_two" class="account_input" type="password" placeholder="请再次输入新密码">
+            <button id="alter_btn">{{ alterBtn }}</button>
+        </div>
     </div>
 </div>
 <div id='content'>
     <div id='content_left'></div>
     <div id='content_mid'>
         <div id="edit_div">
-            <div id="edit_left_div">
-                <div id="edit_left_Tit_div">
-                    <div id="edit_left_top_h1">{{ editH1 }}</div>
-                    <div id="edit_left_top_h3">{{ editH3 }}</div>
-                </div>
-                <div id="edit_left_cutoffrule"></div>
-                <div id="edit_left_bloglist"></div>
-            </div>
+            <div id="edit_left_div"></div>
             <div id="edit_mid_cutoffrule"></div>
             <div id="edit_right_div">
-                <div id="edit_right_Tit_div">
-                    <div id="edit_right_Tit_left_div">
-                        <input id="edit_right_Tit_input" type="text" placeholder="名称">
-                    </div>
-                </div>
                 <iframe id="edit" name="iframe" src="resources/edit/index.html"></iframe>
             </div>
-            <div id="edit_right_Tit_right_div">
-                <div id="edit_save">{{ editSave }}</div>
-                <div id="edit_cutoffrule"></div>
-                <div id="edit_issue">{{ editIssue }}</div>
+        </div>
+        <div id="edit_saveInfo_div">
+            <div id="edit_upBtn">
+                <button></button>
+            </div>
+            <div id="edit_saveInfo_content">
+                <input id="edit_text" type="text" placeholder="文章名称">
+                <span style="margin: 3px">文章分类 :</span>
+                <span id="edit_classify">
+                    <ul id="edit_classify_ul">
+                        <li class="edit_classify_ul_li">
+                            <div style="background: #a1a1a1">生活类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>Android</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>Java</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                        <li class="edit_classify_ul_li">
+                            <div>情感类</div>
+                        </li>
+                    </ul>
+                </span>
+                <span id="edit_Btn_div1">
+                    <span id="edit_Btn_div2">
+                        <span class="edit_Btn_Item">保存</span>
+                        <span class="edit_Btn_Lin"></span>
+                        <span class="edit_Btn_Item" style="left: 51%">发布</span>
+                    </span>
+                </span>
             </div>
         </div>
     </div>
