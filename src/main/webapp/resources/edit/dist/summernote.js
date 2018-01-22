@@ -5302,7 +5302,7 @@
       var collection = $(),
           $dropzoneMessage = $dropzone.find('.note-dropzone-message');
 
-      documentEventHandlers.onDragenter = function (e) {
+     documentEventHandlers.onDragenter = function (e) {
         var isCodeview = context.invoke('codeview.isActivated');
         var hasEditorSize = $editor.width() > 0 && $editor.height() > 0;
         if (!isCodeview && !collection.length && hasEditorSize) {

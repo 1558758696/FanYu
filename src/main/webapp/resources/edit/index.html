@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <title>无标题文档</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/css/bootstrap.css">
-    <link href="dist/summernote.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="dist/summernote.css"/>
     <script src="../../resources/js/js/jquery-1.11.0.min.js"></script>
     <script src="../../resources/js/js/bootstrap.js"></script>
     <script src="dist/summernote.js"></script>
     <script src="dist/lang/summernote-zh-CN.js"></script>
+    <script src="../../resources/js/function.js"></script>
 
     <style>
-        .note-editable{
+        .note-editable {
             height: 100%;
         }
 
@@ -21,10 +22,31 @@
             $('.summernote').summernote({
                 height: '240',
                 tabsize: 2,
-                lang: 'zh-CN'
+                lang: 'zh-CN',
+                callbacks: {
+                    onImageUpload: function (files) {
+                        img = sendFile(files[0]);
+                    }
+                }
             });
-
         });
+
+        function sendFile(file) {
+            data = new FormData();
+            data.append("file", file);
+            console.log(data);
+            $.ajax({
+                data: data,
+                type: "post",
+                url: "http://192.168.1.16:8080/FanYu/upload/uploadImg.do",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $(".summernote").summernote('insertImage', data.path, 'image name');
+                }
+            });
+        }
 
         function getEditContent() {
             return $('.note-editable').html();
@@ -37,9 +59,33 @@
         function getEditContext() {
             return $(".summernote").first().data("summernote");
         }
+
+        function blogListBtnHideAndShow(t) {
+            if (t) {
+                $('#bloglist').hide();
+                $('.note-toolbar').css('padding-left', '5px');
+            } else {
+                $('#bloglist').show();
+                $('.note-toolbar').css('padding-left', '60px');
+            }
+        }
+
     </script>
 </head>
 <body>
 <div class="summernote"></div>
+<script>
+    window.setTimeout(function () {
+        $('.note-toolbar').append('<button id="preview" class="note-btn btn btn-sm">文件预览</button>');
+        $('.note-toolbar').before('<button id="bloglist" class="note-btn btn btn-sm">菜单</button>');
+        $('#bloglist').click(function () {
+            window.parent.userBlogListShow();
+        });
+        $('#preview').click(function () {
+            setTempInfo('blogPreview', getEditContent());
+            window.open('../../preview.html');
+        });
+    }, 100)
+</script>
 </body>
 </html>

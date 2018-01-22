@@ -153,7 +153,7 @@ function saveBtnAjax(object) {
     console.info(object)
     $.ajax({
         type: "post",
-        url: 'http://192.168.1.16:8080/FanYu/blog/addBlog.do',
+        url: 'blog/addBlog.do',
         dataType: "json",
         data: {
             'blogInfo': object
@@ -184,7 +184,7 @@ function readBlogAjax(object) {
     console.info(object);
     $.ajax({
         type: "post",
-        url: 'http://192.168.1.16:8080/FanYu/blog/selectByLimit.do',
+        url: 'blog/selectByLimit.do',
         dataType: "json",
         data: {
             'blogInfo': object
@@ -224,7 +224,7 @@ function readBlogAjax(object) {
 function readBlogContentAjax(id) {
     $.ajax({
         type: "post",
-        url: 'http://192.168.1.16:8080/FanYu/blog/selectById.do',
+        url: 'blog/selectById.do',
         dataType: "json",
         data: {
             'blogId': id
