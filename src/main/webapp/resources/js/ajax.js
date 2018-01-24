@@ -233,7 +233,7 @@ function readBlogContentAjax(id) {
         },
         success: function (data, status) {
             console.info(data);
-            $('#content').append(data.content);
+            $('#blogContent').append(data.content);
         },
         fail: function (err, status) {
             console.log(err);
