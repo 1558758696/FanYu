@@ -15,22 +15,12 @@ $(document).ready(function () {
 
 
     $('.edit_Btn_Item').click(function () {
-        switch ($(this).text()) {
-            case '保存':
-                var blogInfo = {
-                    "userId": getTempInfo('userId'),
-                    "categoryId": 1, //博客类型
-                    "stateId": 1,  //是否发布
-                    "title": 'asdf',
-                    "content": iframe.window.getEditContent()
-                };
-                var object = $.toJSON(blogInfo);
-                saveBtnClick(object);
-                showDialog('保存');
-                break;
-            case '发布':
-                showDialog('发布');
-                break;
+
+        var blogTit = $('#edit_text').val();
+        if (blogTit.length === 0 || blogTit.length > 10) {
+            showDialog('文章名称应为1~10个字符');
+        } else {
+            editBtnClick(this);
         }
     });
 
@@ -53,11 +43,6 @@ $(document).ready(function () {
             isOpenSaveInfo = true;
             $('#edit_upBtn button').css('background-image', 'url("./resources/img/up.png")');
         }
-    });
-
-    $('.edit_classify_ul_li').click(function () {
-        $('.edit_classify_ul_li div').css('background', '#fff');
-        $(this).children().css('background', '#a1a1a1');
     });
 
     var leng = 11;

@@ -4,11 +4,12 @@
 
 var isLess = true;
 var isGreater = true;
-function init() {
+var classify = ['生活', '情感', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '其他'];
+
+function initData() {
     FanYu.diaLog = new $.zui.Messager();
     FanYu.ImageReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
     FanYu.ImageReader.onload = function (oFREvent) {
-
         var userInfo = {
             "userId": getTempInfo('userId'),
             "userHeadPortrait": oFREvent.target.result
@@ -16,23 +17,6 @@ function init() {
         var object = $.toJSON(userInfo);
         updateImage(object);
     };
-}
-
-function loginBtnClick() {
-    var account = $('#login_account_input').val();
-    var pwd = $('#login_pwd_input').val();
-    if (account === '') {
-        showDialog('账号不能为空');
-    } else if (pwd === '') {
-        showDialog('密码不能为空');
-    } else {
-        var userInfo = {
-            "userName": account,
-            "passWord": pwd
-        };
-        var object = $.toJSON(userInfo);
-        loginBtnAjax(object);
-    }
 }
 
 function signinBtnClick() {
@@ -59,6 +43,23 @@ function signinBtnClick() {
     }
 }
 
+function loginBtnClick() {
+    var account = $('#login_account_input').val();
+    var pwd = $('#login_pwd_input').val();
+    if (account === '') {
+        showDialog('账号不能为空');
+    } else if (pwd === '') {
+        showDialog('密码不能为空');
+    } else {
+        var userInfo = {
+            "userName": account,
+            "passWord": pwd
+        };
+        var object = $.toJSON(userInfo);
+        loginBtnAjax(object);
+    }
+}
+
 function alterBtnClick() {
     var account = $('#alter_account_input').val();
     var pwdone = $('#alter_pwd_input_one').val();
@@ -81,8 +82,30 @@ function alterBtnClick() {
     }
 }
 
-function saveBtnClick(object) {
+function editBtnClick(t) {
+    var blogInfo = {
+        "userId": getTempInfo('userId'),
+        "categoryId": blogClassify, //博客类型
+        "stateId": 1,  //是否发布
+        "title": $('#edit_text').val(),
+        "content": iframe.window.getEditContent()
+    };
+    if ($(t).text() === '保存') {
+        blogInfo.stateId = 1;
+
+    } else if ($(t).text() === '发布') {
+        blogInfo.stateId = 2;
+    }
+    var object = $.toJSON(blogInfo);
     saveBtnAjax(object);
+}
+
+
+function initEditClassify(i) {
+    var html = '<li class="edit_classify_ul_li">\n' +
+        '<div><span>' + i + '</span>' + classify[i] + '</div>\n' +
+        '</li>';
+    $('#edit_classify_ul').append(html);
 }
 
 
@@ -107,11 +130,11 @@ var arr4 = ['Android', 'Java', 'Html', 'C++', 'Python', 'C#', 'JavaScript', 'C']
         '<span class="content_left_item_bottm_right">' + getNowFormatDate() + '</span>' +
         '</span>' +
         '<span class="content_left_item_bottom">' +
-        '<span>阅读 :</span>' +
+        '<span style="display: none">阅读 :</span>' +
         '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
         '</span>' +
         '<span class="content_left_item_bottom">' +
-        '<span>评论 :</span>' +
+        '<span style="display: none;">评论 :</span>' +
         '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
         '</span>' +
         '<span id="blogId" style="display: none;">' + arr2[i] + '</span>' +
@@ -139,11 +162,11 @@ function addBlogItem(i) {
         '<span>时间 :</span>' +
         '<span class="content_left_item_bottm_right">' + blogList[i].date + '</span>' +
         '</span>' +
-        '<span class="content_left_item_bottom">' +
+        '<span class="content_left_item_bottom" style="display: none;">' +
         '<span>阅读 :</span>' +
         '<span class="content_left_item_bottm_right">' + blogList[i].read + '</span>' +
         '</span>' +
-        '<span class="content_left_item_bottom">' +
+        '<span class="content_left_item_bottom" style="display: none;">' +
         '<span>评论 :</span>' +
         '<span class="content_left_item_bottm_right">' + blogList[i].comment + '</span>' +
         '</span>' +
@@ -334,24 +357,6 @@ function showDialog(m) {
     FanYu.diaLog.show();
 }
 
-function getNowFormatDate() {
-    var date = new Date();
-    var seperator1 = "-";
-    var seperator2 = ":";
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-        + " " + date.getHours() + seperator2 + date.getMinutes()
-        + seperator2 + date.getSeconds();
-    return currentdate;
-}
-
 function loadImageFile() {
     if (document.getElementById("uploadImage").files.length === 0) {
         return;
@@ -374,4 +379,22 @@ function getTempInfo(k) {
 
 function removeTempInfo(k) {
     sessionStorage.removeItem(k)
+}
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        + " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();
+    return currentdate;
 }

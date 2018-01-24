@@ -9,6 +9,7 @@
     <script src="../../resources/js/js/bootstrap.js"></script>
     <script src="dist/summernote.js"></script>
     <script src="dist/lang/summernote-zh-CN.js"></script>
+    <script src="../../resources/js/ajax.js"></script>
     <script src="../../resources/js/function.js"></script>
 
     <style>
@@ -32,20 +33,10 @@
         });
 
         function sendFile(file) {
-            data = new FormData();
-            data.append("file", file);
-            console.log(data);
-            $.ajax({
-                data: data,
-                type: "post",
-                url: "http://192.168.1.16:8080/FanYu/upload/uploadImg.do",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    $(".summernote").summernote('insertImage', data.path, 'image name');
-                }
-            });
+            window.parent.uploadImagePath(file);
+        }
+        function setimagePath(url) {
+            $(".summernote").summernote('insertImage', url, 'image name');
         }
 
         function getEditContent() {

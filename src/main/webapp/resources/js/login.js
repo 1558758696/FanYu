@@ -46,6 +46,12 @@ $(document).ready(function () {
                 $('#alter_div').fadeOut();
                 $('#float_div').fadeOut(200);
                 break;
+            case 'alter_div':
+                break;
+            case 'login_div':
+                break;
+            case 'signin_div':
+                break;
             default:
                 isOpenLoginDiv = false;
                 $('#login_div').fadeIn();

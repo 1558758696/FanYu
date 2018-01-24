@@ -4,11 +4,6 @@ html body {
     background: rgba(0, 0, 0, 0.05)
 }
 
-[v-cloak] {
-    display: none;
-
-}
-
 #nav_headportrait {
     display: none;
     width: 40px;
@@ -18,7 +13,6 @@ html body {
     left: 20px;
 }
 
-/*个人信息*/
 #userInfo_div {
     display: none;
     position: fixed;
@@ -79,7 +73,6 @@ html body {
     opacity: 0.7;
 }
 
-/*退出*/
 #quit {
     position: absolute;
     width: 47px;
@@ -97,7 +90,6 @@ html body {
     opacity: 0.6;
 }
 
-/*NAV背景*/
 .navbar-default {
     background: rgba(0, 0, 0, 0.74)
 }
@@ -123,7 +115,6 @@ html body {
     margin: auto
 }
 
-/*注册*/
 #signin_div {
     display: none;
     position: absolute;
@@ -132,7 +123,6 @@ html body {
     background: none
 }
 
-/*登录*/
 #login_div {
     display: none;
     position: absolute;
@@ -149,7 +139,6 @@ html body {
     background: none
 }
 
-/*没有账号 忘记密码*/
 #no_signin_div {
     width: 80%;
     height: 45px;
@@ -158,7 +147,6 @@ html body {
     line-height: 45px;
 }
 
-/*还没账号*/
 #no_signin {
     float: left;
     margin-left: 5px;
@@ -169,7 +157,6 @@ html body {
     opacity: 0.6;
 }
 
-/*忘记密码*/
 #forget_pwd {
     float: right;
     margin-right: 5px;
@@ -180,7 +167,6 @@ html body {
     opacity: 0.6;
 }
 
-/*登录注册Tit*/
 #signin_Tit, #login_Tit, #alter_Tit {
     width: 80%;
     height: 45px;
@@ -192,7 +178,6 @@ html body {
     text-align: center;
 }
 
-/*输入框*/
 .account_input {
     outline: none;
     color: black;
@@ -203,7 +188,6 @@ html body {
     border: 1px solid rgba(0, 0, 0, 0.5)
 }
 
-/*登录 注册按钮*/
 #signin_btn, #login_btn, #alter_btn {
     outline: none;
     width: 80%;
@@ -226,7 +210,6 @@ html body {
     background: rgba(0, 0, 0, 0.55);
 }
 
-/*首页*/
 #nav_home {
     margin-left: 15px;
     line-height: 50px;
@@ -235,7 +218,6 @@ html body {
     cursor: pointer;
 }
 
-/*tit_item*/
 .navbar_item_div {
     margin-left: 40px;
     line-height: 50px;
@@ -247,7 +229,6 @@ html body {
     opacity: 0.4;
 }
 
-/*搜索框*/
 .search_text {
     width: 200px;
     height: 30px;
@@ -259,7 +240,6 @@ html body {
     border: 0;
 }
 
-/*搜索按钮*/
 .search_btn {
     position: relative;
     width: 30px;
@@ -273,7 +253,6 @@ html body {
     opacity: 0.5;
 }
 
-/*主题内容*/
 #content {
     position: relative;
     width: 90%;
@@ -282,7 +261,6 @@ html body {
     z-index: 10;
 }
 
-/*左侧*/
 #content_left {
     position: absolute;
     width: 69%;
@@ -293,7 +271,6 @@ html body {
     z-index: 20;
 }
 
-/*中间*/
 #content_mid {
     display: none;
     position: absolute;
@@ -307,7 +284,6 @@ html body {
     z-index: 20000;
 }
 
-/*随心记*/
 #edit_div {
     position: relative;
     width: 100%;
@@ -315,7 +291,6 @@ html body {
     background: whitesmoke;
 }
 
-/*左侧显示列表*/
 #edit_left_div {
     display: none;
     position: absolute;
@@ -324,7 +299,6 @@ html body {
     overflow-y: auto;
 }
 
-/*个人博客条目*/
 #userBlogItem {
     width: 100%;
     background: rgba(245, 245, 245, 0.99);
@@ -375,7 +349,6 @@ html body {
     outline: none;
     border: 0;
     background: transparent;
-    /*float: right;*/
     right: 10px;
     position: absolute;
     margin: 4px;
@@ -402,7 +375,6 @@ html body {
     overflow: hidden
 }
 
-/*分割线*/
 #edit_mid_cutoffrule {
     position: absolute;
     width: 0.5%;
@@ -412,7 +384,6 @@ html body {
     background: rgba(40, 39, 33, 0.16);
 }
 
-/*编辑器*/
 #edit_right_div {
     position: absolute;
     width: 100%;
@@ -435,31 +406,27 @@ html body {
     position: relative;
     width: 90%;
     height: 60px;
-    /*display: none;*/
     margin-left: 5%;
     margin-top: -60px;
     z-index: 10;
     background: rgb(221, 221, 221);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    /*padding: 10px;*/
+
 }
 
-/*iframe 编辑*/
 #edit {
     width: 100%;
     height: 100%;
     border: 0;
 }
 
-/*博客条目*/
 #content_left_item {
     width: 94%;
     margin: 15px 3%;
     height: auto;
 }
 
-/*博客标题*/
 #content_left_item_Tit {
     width: 60%;
     height: auto;
@@ -470,7 +437,6 @@ html body {
     color: black;
 }
 
-/*博客标题*/
 #content_left_item_Tit_span {
     cursor: pointer;
 }
@@ -479,14 +445,12 @@ html body {
     color: #d206fa;
 }
 
-/*博客分类*/
 #content_left_item_classify {
     top: -30px;
     position: relative;
     cursor: pointer;
 }
 
-/*博客底部作者 时间等*/
 #content_left_item_bottom {
     width: 100%;
     height: auto;
@@ -504,7 +468,6 @@ html body {
     margin-right: 20px;
 }
 
-/*作者*/
 #author {
     cursor: pointer;
 }
@@ -569,22 +532,34 @@ html body {
     margin: auto;
 }
 
+#edit_text_div {
+    position: absolute;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    background: silver;
+}
+
 #edit_text {
-    background: #e7e7e7;
     outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: #e7e7e7;
     border: 0;
     font-size: 16px;
-    text-align: center;
-    width: 20%;
-    height: 40px
 }
 
 #edit_classify {
+    right: 105px;
+    left: 100px;
     position: absolute;
-    width: 65.5%;
+    display: inline-block;
+    font-size: 14px;
+    width: auto;
     height: 40px;
-    background: #e7e7e7;
     overflow-y: auto;
+    background: #e7e7e7;
 }
 
 #edit_classify_ul {
@@ -615,20 +590,25 @@ html body {
     background: white;
 }
 
-#edit_Btn_div1 {
-    position: absolute;
-    width: 10%;
-    height: 40px;
-    left: 89.5%
+.edit_classify_ul_li div span {
+    display: none;
 }
 
-#edit_Btn_div2 {
+#edit_Btn_div {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    float: right
+}
+
+#edit_Btn_div_span {
+    line-height: 35px;
+    border-radius: 30px;
     position: absolute;
-    width: 100%;
+    width: 90%;
+    margin: 5px 5%;
     height: 35px;
-    top: 2.5px;
-    background: darkgrey;
-    border-radius: 20px
+    background: #a1a1a1;
 }
 
 #edit_upBtn {
@@ -661,27 +641,16 @@ html body {
 
 .edit_Btn_Item {
     position: absolute;
-    width: 48%;
-    height: 35px;
-    line-height: 35px;
+    width: 50%;
     text-align: center;
-    font-size: 16px;
     cursor: pointer;
 }
 
 .edit_Btn_Item:hover {
     opacity: 0.4;
+    background: #d0d0d0;
 }
 
-.edit_Btn_Lin {
-    position: absolute;
-    width: 1%;
-    height: 35px;
-    background: rgba(121, 121, 121, 0.8);
-    left: 49.5%
-}
-
-/*回到顶部*/
 #top {
     display: none;
     position: fixed;
@@ -700,7 +669,6 @@ html body {
     opacity: 0.6;
 }
 
-/*滚动条*/
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -709,7 +677,6 @@ html body {
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
-    /*background-color: red;*/
     opacity: 0.1;
 }
 

@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="resources/css/css/bootstrap.css">
     <link rel="stylesheet" href="resources/css/css/semantic.css">
     <link rel="stylesheet" href="resources/css/css/popup.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-    <script src="resources/js/js/vue.min.js"></script>
+    <link rel="stylesheet" href="resources/css/index.css">
     <script src="resources/js/js/jquery-1.11.0.min.js"></script>
     <script src="resources/progress/jquery-ui.min.js "></script>
     <script src="resources/progress/visible.min.js"></script>
@@ -37,7 +36,7 @@
     </div>
 </div>
 <input id="uploadImage" type="file" name="myPhoto" onchange="loadImageFile();"/>
-<nav class='navbar-default' v-cloak>
+<nav class='navbar-default'>
     <div class='container-fluid'>
         <div class='navbar-header'>
             <button type='button' class='navbar-toggle collapsed' data-toggle='collapse'
@@ -47,7 +46,7 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <div id='nav_home'>{{ navHome }}</div>
+            <div id='nav_home'>首页</div>
         </div>
         <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
             <ul class='nav navbar-nav'>
@@ -56,13 +55,13 @@
                     <img class='search_btn' src='resources/img/search.png'>
                 </li>
                 <li>
-                    <div id='nav_classify' class='navbar_item_div'>{{ navClassify }}</div>
+                    <div id='nav_classify' class='navbar_item_div'>分类</div>
                 </li>
                 <li>
-                    <div id='nav_collect' class='navbar_item_div'>{{ navCollect }}</div>
+                    <div id='nav_collect' class='navbar_item_div'>收藏</div>
                 </li>
                 <li>
-                    <div class='navbar_item_div'>{{ navInRegardTo }}</div>
+                    <div class='navbar_item_div'>关于</div>
                 </li>
                 <li id='li_search2'>
                     <input id='search' class='search_text' type='text' placeholder='Search'>
@@ -71,10 +70,10 @@
             </ul>
             <ul class='nav navbar-nav navbar-right'>
                 <li>
-                    <div id="nav_note" style="display: none;" class='navbar_item_div'>{{ navNote }}</div>
+                    <div id="nav_note" style="display: none;" class='navbar_item_div'>随心记</div>
                 </li>
                 <li style="width: 80px">
-                    <div id='nav_login' style="display: block;" class='navbar_item_div'> {{ navLogin }}</div>
+                    <div id='nav_login' style="display: block;" class='navbar_item_div'>登录</div>
                     <img id="nav_headportrait" style="display: none" class="navbar_item_div" title="头像"
                          src="resources/img/qw.jpg" oncontextmenu="return false" ondragstart="return false"/>
                 </li>
@@ -83,43 +82,43 @@
     </div>
 </nav>
 <div id="userInfo_div">
-    <span id="userInfo_div_personal_details">{{ alterDetails }}</span>
+    <span id="userInfo_div_personal_details">个人信息</span>
     <ul id="userInfo_div_ul">
         <li>
-            <div id="alter_headPortrait" class="userInfo_item">{{ alterrPortrait }}</div>
+            <div id="alter_headPortrait" class="userInfo_item">修改头像</div>
         </li>
         <li>
-            <div id="alter_password" class="userInfo_item">{{ alterPassword }}</div>
+            <div id="alter_password" class="userInfo_item">修改密码</div>
         </li>
     </ul>
     <div id="userInfo_div_cutoffrule"></div>
-    <div id="quit">{{ alterQuit }}</div>
+    <div id="quit">退出</div>
 </div>
 <div id="float_div">
     <div id="float_div_content">
         <div id="signin_div">
-            <div id="signin_Tit">{{ signinTit }}</div>
+            <div id="signin_Tit">- 账号注册 -</div>
             <input id="signin_account_input" class="account_input" type="text" placeholder="请输入账号">
             <input id="signin_pwd_input_one" class="account_input" type="password" placeholder="请输入密码">
             <input id="signin_pwd_input_two" class="account_input" type="password" placeholder="请再次输入密码">
-            <button id="signin_btn">{{ signinText }}</button>
+            <button id="signin_btn">注册</button>
         </div>
         <div id="login_div">
-            <div id="login_Tit">{{ loginTit }}</div>
+            <div id="login_Tit">- 账号登录 -</div>
             <input id="login_account_input" class="account_input" type="text" placeholder="请输入账号">
             <input id="login_pwd_input" class="account_input" type="password" placeholder="请输入密码">
             <div id="no_signin_div">
-                <span id="no_signin">{{ noSignin }}</span>
-                <span id="forget_pwd">{{ forgetPwd }}</span>
+                <span id="no_signin">还没账号？</span>
+                <span id="forget_pwd">忘记密码？</span>
             </div>
-            <button id="login_btn">{{ loginText }}</button>
+            <button id="login_btn">立即登录</button>
         </div>
         <div id="alter_div">
-            <div id="alter_Tit">{{ alterPwd }}</div>
-            <input id="alter_account_input" class="account_input" type="text" placeholder="请输入账号">
+            <div id="alter_Tit">修改密码</div>
+            <input id="alter_account_input" class="account_input" type="text" placeholder="请输入账号" disabled="disabled">
             <input id="alter_pwd_input_one" class="account_input" type="password" placeholder="请输入新密码">
             <input id="alter_pwd_input_two" class="account_input" type="password" placeholder="请再次输入新密码">
-            <button id="alter_btn">{{ alterBtn }}</button>
+            <button id="alter_btn">立即修改</button>
         </div>
     </div>
 </div>
@@ -138,46 +137,18 @@
                 <button></button>
             </div>
             <div id="edit_saveInfo_content">
-                <input id="edit_text" type="text" placeholder="文章名称">
-                <span style="margin: 3px">文章分类 :</span>
-                <span id="edit_classify">
-                    <ul id="edit_classify_ul">
-                        <li class="edit_classify_ul_li">
-                            <div style="background: #a1a1a1">生活类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>Android</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>Java</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                        <li class="edit_classify_ul_li">
-                            <div>情感类</div>
-                        </li>
-                    </ul>
-                </span>
-                <span id="edit_Btn_div1">
-                    <span id="edit_Btn_div2">
+                <div id="edit_text_div">
+                    <input id="edit_text" type="text" placeholder="文章名称">
+                </div>
+                <div id="edit_classify">
+                    <ul id="edit_classify_ul"></ul>
+                </div>
+                <div id="edit_Btn_div">
+                    <span id="edit_Btn_div_span">
                         <span class="edit_Btn_Item">保存</span>
-                        <span class="edit_Btn_Lin"></span>
-                        <span class="edit_Btn_Item" style="left: 51%">发布</span>
+                        <span class="edit_Btn_Item" style="left: 50%">发布</span>
                     </span>
-                </span>
+                </div>
             </div>
         </div>
     </div>

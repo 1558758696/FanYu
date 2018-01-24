@@ -2,21 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title id="title">title</title>
     <link rel="shortcut icon" href="resources/img/tit.png">
+    <link rel="stylesheet" href="resources/css/blogs.css">
     <script src="resources/js/js/jquery-1.11.0.min.js"></script>
-    <script src="resources/js/js/jquery.cookie.js"></script>
-    <script src="resources/js/function.js"></script>
     <script src="resources/js/player.js"></script>
     <script src="resources/js/ajax.js"></script>
+    <script src="resources/js/blogs.js"></script>
 </head>
 <body>
-<div id="blogContent" style="width: 90%;margin:10px 5%;height: 500px;background: wheat"></div>
+<div id="content">
+    <div id="blogTit">冰冻三尺非一日之寒</div>
+    <div id="blogDetails">
+        <span class="blogDetails_Item">
+            <span>作者：</span>
+            <span id="author"></span>
+        </span>
+        <span class="blogDetails_Item">
+            <span>时间：</span>
+            <span id="date"></span>
+        </span>
+    </div>
+    <div id="blogContent"></div>
+</div>
+<div id='top'></div>
 </body>
-<script>
-//    $('#title').text(getTempInfo('blogsName'));
-//    $('#blogContent').append(getTempInfo('blogPreview'));
-console.info(getTempInfo('blogId'));
-    readBlogContentAjax(getTempInfo('blogId'))
-</script>
 </html>

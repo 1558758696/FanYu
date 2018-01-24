@@ -1,7 +1,7 @@
 function signinBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/register.do',
+        url: FanYu.user + '/register.do',
         dataType: "json",
         data: {
             'userInfo': object
@@ -43,7 +43,7 @@ function signinBtnAjax(object) {
 function loginBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/login.do',
+        url: FanYu.user + '/login.do',
         dataType: "json",
         data: {
             'userInfo': object
@@ -56,7 +56,7 @@ function loginBtnAjax(object) {
         success: function (data, status) {
             if (data.loginState === 'success') {
                 showDialog(data.info);
-                setTempInfo('userId',data.userId);
+                setTempInfo('userId', data.userId);
                 setTempInfo('userName', jQuery.parseJSON(object).userName);
                 setTempInfo('headPortrait', data.headPortrait);
                 window.location.reload();
@@ -80,7 +80,7 @@ function loginBtnAjax(object) {
 function alterBtnAjax(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/updatePassWord.do',
+        url: FanYu.user + '/updatePassWord.do',
         dataType: "json",
         data: {
             'userInfo': object
@@ -89,7 +89,6 @@ function alterBtnAjax(object) {
         beforeSend: function () {
             $('#alter_btn').attr('disabled', "true");
             $('.pro-bar-container').show();
-            showDialog('正在修改...');
         },
         success: function (data, status) {
             if (data.updatePassWordState === 'success') {
@@ -118,20 +117,18 @@ function alterBtnAjax(object) {
 function updateImage(object) {
     $.ajax({
         type: "post",
-        url: FanYu.url + '/updateHeadPortrait.do',
+        url: FanYu.user + '/updateHeadPortrait.do',
         dataType: "json",
         data: {
             'userInfo': object
         },
-        timeout: 5000,
         beforeSend: function () {
             $('.pro-bar-container').show();
-            showDialog('正在更新...');
         },
         success: function (data, status) {
             if (data.updateHeadPortraitState === 'success') {
                 $('#nav_headportrait').attr('src', data.userHeadPortrait);
-               setTempInfo('headPortrait', data.userHeadPortrait);
+                setTempInfo('headPortrait', data.userHeadPortrait);
                 showDialog(data.info);
             } else if (data.updateHeadPortraitState === 'fail') {
                 showDialog(data.info);
@@ -153,7 +150,7 @@ function saveBtnAjax(object) {
     console.info(object)
     $.ajax({
         type: "post",
-        url: 'blog/addBlog.do',
+        url: FanYu.blog + '/addBlog.do',
         dataType: "json",
         data: {
             'blogInfo': object
@@ -161,7 +158,7 @@ function saveBtnAjax(object) {
         timeout: 5000,
         beforeSend: function () {
             // $('#edit_save').attr('disabled', "true");
-            // $('.pro-bar-container').show();
+             $('.pro-bar-container').show();
         },
         success: function (data, status) {
             showDialog(data.info);
@@ -181,10 +178,9 @@ function saveBtnAjax(object) {
 
 
 function readBlogAjax(object) {
-    console.info(object);
     $.ajax({
         type: "post",
-        url: 'blog/selectByLimit.do',
+        url: FanYu.blog + '/selectByLimit.do',
         dataType: "json",
         data: {
             'blogInfo': object
@@ -192,6 +188,7 @@ function readBlogAjax(object) {
         // timeout: 5000,
         beforeSend: function () {
             console.info(getNowFormatDate());
+            $('.pro-bar-container').show();
         },
         success: function (data, status) {
             for (var i = 0; i < data.length; i++) {
@@ -216,6 +213,7 @@ function readBlogAjax(object) {
         },
         complete: function (XMLHttpRequest, textStatus) {
             console.info(getNowFormatDate());
+            $('.pro-bar-container').fadeOut();
         }
     });
 }
@@ -224,27 +222,44 @@ function readBlogAjax(object) {
 function readBlogContentAjax(id) {
     $.ajax({
         type: "post",
-        url: 'blog/selectById.do',
+        url: FanYu.blog + '/selectById.do',
         dataType: "json",
         data: {
             'blogId': id
         },
         // timeout: 5000,
         beforeSend: function () {
-
+            $('.pro-bar-container').show();
         },
         success: function (data, status) {
             console.info(data);
-            $('#blogContent').append(data.content);
+            $('#content').append(data.content);
         },
         fail: function (err, status) {
             console.log(err);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showDialog('连接服务器失败');
+            // showDialog('连接服务器失败');
         },
         complete: function (XMLHttpRequest, textStatus) {
+            $('.pro-bar-container').fadeOut();
+        }
+    });
+}
 
+function uploadImagePath(file) {
+    data = new FormData();
+    data.append("file", file);
+    console.log(data);
+    $.ajax({
+        data: data,
+        type: "post",
+        url: FanYu.upload + '/uploadImg.do',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            iframe.window.setimagePath(data.path);
         }
     });
 }
