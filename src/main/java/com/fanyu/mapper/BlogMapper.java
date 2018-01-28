@@ -15,9 +15,9 @@ public interface BlogMapper {
 
     Blog selectByPrimaryKey(Integer id);
 
-    List<Blog> selectByLimit(@Param("offset")Integer offset, @Param("limit")Integer limit);
+    List<Blog> selectByLimit(@Param("offset") Integer offset, @Param("limit") Integer limit, @Param("stateId") int stateId);
 
-    List<Blog> selectByUserId(@Param("userId")Integer userId,@Param("offset")Integer offset, @Param("limit")Integer limit);
+    List<Blog> selectByUserId(@Param("userId") Integer userId, @Param("offset") Integer offset, @Param("limit") Integer limit);
 
     int updateByPrimaryKeySelective(Blog record);
 

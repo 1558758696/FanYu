@@ -35,14 +35,13 @@ public class BlogController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
         String blogInfo = request.getParameter("blogInfo");
-        System.out.println("test");
         JSONObject blogJson = JSONObject.parseObject(blogInfo);
         JSONObject json = new JSONObject();
         Content content = new Content();
         content.setContent(blogJson.getString("content"));
         int contentFlag = this.contentService.insertContent(content);
-        System.out.println(content.getId());
         int i = 0;
+        int blogId = 0;
         if (contentFlag == 1) {
             Blog blog = new Blog();
             blog.setUserId(blogJson.getInteger("userId"));
@@ -53,12 +52,13 @@ public class BlogController {
             blog.setModifydate(new Date());
             blog.setReleasedate(new Date());
             i = this.blogService.insertToBlog(blog);
-            System.out.println(i);
+            blogId = blog.getId();
 
         }
         if (i == 1) {
             json.put("addBlogState", "success");
             json.put("info", "成功");
+            json.put("blogId", blogId);
             return json;
         } else {
             json.put("addBlogState", "fail");
@@ -72,12 +72,16 @@ public class BlogController {
     public JSONObject selectById(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         int blogId = Integer.parseInt(request.getParameter("blogId"));
         Blog blog = this.blogService.selectById(blogId);
         Content content = this.contentService.selectById(blog.getContentId());
         JSONObject json = new JSONObject();
         json.put("content", content.getContent());
         json.put("title", blog.getTitle());
+        json.put("user", blog.getUser().getUsername());
+        String dateString = formatter.format(blog.getModifydate());
+        json.put("date", dateString);
         return json;
     }
 
@@ -90,27 +94,29 @@ public class BlogController {
         JSONObject blogJson = JSONObject.parseObject(blogInfo);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<JSON> list = new ArrayList<>();
-        List<Blog> blog = this.blogService.selectByLimit(blogJson.getInteger("start"), blogJson.getInteger("end"));
-        for (int i = 0; i < blog.size(); i++) {
+        List<Blog> blog = this.blogService.selectByLimit(blogJson.getInteger("start"), blogJson.getInteger("end"), blogJson.getInteger("stateId"));
+        for (Blog aBlog : blog) {
             JSONObject json = new JSONObject();
-            json.put("title", blog.get(i).getTitle());
-            json.put("user", blog.get(i).getUser().getUsername());
-            String dateString = formatter.format(blog.get(i).getModifydate());
+            json.put("title", aBlog.getTitle());
+            json.put("user", aBlog.getUser().getUsername());
+            String dateString = formatter.format(aBlog.getModifydate());
             json.put("date", dateString);
-            json.put("read", blog.get(i).getReadcount());
-            json.put("comment", blog.get(i).getComment());
-            json.put("category", blog.get(i).getCategoryId());
-            json.put("blogId", blog.get(i).getId());
+            json.put("read", aBlog.getReadcount());
+            json.put("comment", aBlog.getComment());
+            json.put("category", aBlog.getCategoryId());
+            json.put("state", aBlog.getState().getState());
+            json.put("blogId", aBlog.getId());
             list.add(json);
 
         }
         return list;
     }
+
     @RequestMapping("/test")
     @ResponseBody
-    public void test(){
-        List<Blog> blog =this.blogService.selectByLimit(0,10);
+    public void test() {
+        List<Blog> blog = this.blogService.selectByLimit(0, 10, 2);
         System.out.println(blog.get(2).getUser().getUsername());
-     }
+    }
 
 }

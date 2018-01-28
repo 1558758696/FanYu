@@ -25,6 +25,10 @@ public class Blog {
 
     private User user;
 
+    private State state;
+
+    private Category category;
+
     public Integer getId() {
         return id;
     }
@@ -109,7 +113,12 @@ public class Blog {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public State getState() {
+        return state;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
 }

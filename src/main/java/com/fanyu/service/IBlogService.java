@@ -9,7 +9,7 @@ public interface IBlogService {
 
     public Blog selectById(Integer id);
 
-    public List<Blog> selectByLimit(Integer start, Integer end);
+    public List<Blog> selectByLimit(Integer start, Integer end, Integer stateId);
 
     public List<Blog> selectByUserId(Integer userId, Integer start, Integer end);
 

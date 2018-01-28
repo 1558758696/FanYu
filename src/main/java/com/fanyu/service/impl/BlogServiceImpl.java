@@ -27,8 +27,8 @@ public class BlogServiceImpl implements IBlogService {
     }
 
     @Override
-    public List<Blog> selectByLimit(Integer start, Integer end) {
-        return this.blogDao.selectByLimit(start, end);
+    public List<Blog> selectByLimit(Integer start, Integer end, Integer stateId) {
+        return this.blogDao.selectByLimit(start, end, stateId);
     }
 
     @Override
