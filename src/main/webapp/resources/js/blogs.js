@@ -1,9 +1,5 @@
 $(window).ready(function () {
     changeWidth();
-    $('#title').text(sessionStorage.getItem('blogsName'));
-    $('#blogTit').text('HAHAHHAHAHHAHAHAH');
-    $('#author').text('Shaomg');
-    $('#date').text('2018-01-24 15:18:36');
     readBlogContentAjax(sessionStorage.getItem('blogId'));
     $('#top').click(function () {
         scrollTopBtnClick();

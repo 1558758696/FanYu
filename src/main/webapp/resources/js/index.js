@@ -7,16 +7,10 @@ $(document).ready(function () {
     initData();
     changeWidth();
 
-    /*for (var i = 0; i < 15; i++) {
-        addBlogItem(i);
-    }*/
-
-    var userInfo = {
-        "start": 0,
-        "end": 10
-    };
-    var object = $.toJSON(userInfo);
-    readBlogAjax(object);
+    /* for (var i = 0; i < 10; i++) {
+     addBlogItem(i);
+     }*/
+    readBlogAjax();
 });
 
 $(window).resize(function () {
@@ -27,8 +21,12 @@ $(window).resize(function () {
 });
 
 $(window).scroll(function () {
-    /*if (($(document).height() - $(window).height() - $(document).scrollTop()) <= $(window).height()) {
-     loadMore();
-     }*/
+    if (($(document).height() - $(window).height() - $(document).scrollTop()) <= $(window).height()) {
+        loadMore();
+    }
+
+    /*if($(this).scrollTop() + $(this).height() == $(document).height()){
+        addLastItem()
+    }*/
     scrollTopBtn();
 });

@@ -4,7 +4,7 @@
 
 var isLess = true;
 var isGreater = true;
-var classify = ['生活', '情感', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '其他'];
+var classify = ['生活类', '情感', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '生活类', '情感类', '其他'];
 
 function initData() {
     FanYu.diaLog = new $.zui.Messager();
@@ -59,6 +59,15 @@ function loginBtnClick() {
         loginBtnAjax(object);
     }
 }
+
+function encodeBase64(code) {
+    $.base64.utf8encode = true;
+    for (var i = 0; i < code.length; i++) {
+        s = $.base64.btoa(code);
+    }
+    return s;
+}
+
 
 function alterBtnClick() {
     var account = $('#alter_account_input').val();
@@ -115,62 +124,61 @@ var arr3 = ['说散就散', '365个祝福', '红昭愿', '不配说爱你', '漂
 var arr4 = ['Android', 'Java', 'Html', 'C++', 'Python', 'C#', 'JavaScript', 'C'];
 
 /*function addBlogItem(i) {
-    var html = '<div id="content_left_item" class=\'ui segment\'>' +
-        '<div id="content_left_item_Tit">' +
-        '<span id="content_left_item_Tit_span">' + arr3[i] + '</span>' +
-        '</div>' +
-        '<div id="content_left_item_classify" class=\'ui pink top right ribbon label\'>' + arr4[i] + '</div>' +
-        '<div id="content_left_item_bottom">' +
-        '<span class="content_left_item_bottom">' +
-        '<span>作者 :</span>' +
-        '<span id="author" class="content_left_item_bottm_right">' + arr1[i] + '</span>' +
-        '</span>' +
-        '<span class="content_left_item_bottom">' +
-        '<span>时间 :</span>' +
-        '<span class="content_left_item_bottm_right">' + getNowFormatDate() + '</span>' +
-        '</span>' +
-        '<span class="content_left_item_bottom">' +
-        '<span style="display: none">阅读 :</span>' +
-        '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
-        '</span>' +
-        '<span class="content_left_item_bottom">' +
-        '<span style="display: none;">评论 :</span>' +
-        '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
-        '</span>' +
-        '<span id="blogId" style="display: none;">' + arr2[i] + '</span>' +
-        '<span style="position: absolute; right: 20px;">' +
-        '<img id="collect" src="resources/img/collect.png" width="20" title="收藏"/>' +
-        '</span>' +
-        '</div>' +
-        '</div>';
-    $('#content_left').append(html);
-}*/
+ var html = '<div id="content_left_item" class=\'ui segment\'>' +
+ '<div id="content_left_item_Tit">' +
+ '<span id="content_left_item_Tit_span">' + arr3[i] + '</span>' +
+ '</div>' +
+ '<div id="content_left_item_classify" class=\'ui pink top right ribbon label\'>' + arr4[i] + '</div>' +
+ '<div id="content_left_item_bottom">' +
+ '<span class="content_left_item_bottom">' +
+ '<span>作者 :</span>' +
+ '<span id="author" class="content_left_item_bottm_right">' + arr1[i] + '</span>' +
+ '</span>' +
+ '<span class="content_left_item_bottom">' +
+ '<span>时间 :</span>' +
+ '<span class="content_left_item_bottm_right">' + getNowFormatDate() + '</span>' +
+ '</span>' +
+ '<span class="content_left_item_bottom" style="display: none">' +
+ '<span>阅读 :</span>' +
+ '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
+ '</span>' +
+ '<span class="content_left_item_bottom" style="display: none;">' +
+ '<span>评论 :</span>' +
+ '<span class="content_left_item_bottm_right">' + arr2[i] + '</span>' +
+ '</span>' +
+ '<span id="blogId" style="display: none;">' + arr2[i] + '</span>' +
+ '<span style="position: absolute; right: 20px;">' +
+ '<img id="collect" src="resources/img/collect.png" width="20" title="收藏"/>' +
+ '</span>' +
+ '</div>' +
+ '</div>';
+ $('#content_left').append(html);
+ }*/
 
 function addBlogItem(i) {
-    console.info(blogList[i].blogId);
     var html = '<div id="content_left_item" class=\'ui segment\'>' +
         '<div id="content_left_item_Tit">' +
-        '<span id="content_left_item_Tit_span">' + blogList[i].title + '</span>' +
+        '<span id="content_left_item_Tit_span">' + i.title + '</span>' +
         '</div>' +
-        '<div id="content_left_item_classify" class=\'ui pink top right ribbon label\'>' + blogList[i].category + '</div>' +
+        '<div id="content_left_item_classify" class=\'ui pink top right ribbon label\'>' + classify[i.category - 1] + '</div>' +
         '<div id="content_left_item_bottom">' +
         '<span class="content_left_item_bottom">' +
         '<span>作者 :</span>' +
-        '<span id="author" class="content_left_item_bottm_right">' + blogList[i].user + '</span>' +
+        '<span id="author" class="content_left_item_bottm_right">' + i.user + '</span>' +
         '</span>' +
         '<span class="content_left_item_bottom">' +
         '<span>时间 :</span>' +
-        '<span class="content_left_item_bottm_right">' + blogList[i].date + '</span>' +
+        '<span class="content_left_item_bottm_right">' + i.date + '</span>' +
         '</span>' +
         '<span class="content_left_item_bottom" style="display: none;">' +
         '<span>阅读 :</span>' +
-        '<span class="content_left_item_bottm_right">' + blogList[i].read + '</span>' +
+        '<span class="content_left_item_bottm_right">' + i.read + '</span>' +
         '</span>' +
         '<span class="content_left_item_bottom" style="display: none;">' +
         '<span>评论 :</span>' +
-        '<span class="content_left_item_bottm_right">' + blogList[i].comment + '</span>' +
+        '<span class="content_left_item_bottm_right">' + i.comment + '</span>' +
         '</span>' +
-        '<span id="blogId" style="display: none;">' + blogList[i].blogId + '</span>' +
+        '<span id="blogId" style="display: none;">' + i.blogId + '</span>' +
         '<span style="position: absolute; right: 20px;">' +
         '<img id="collect" src="resources/img/collect.png" width="20" title="收藏"/>' +
         '</span>' +
@@ -180,33 +188,17 @@ function addBlogItem(i) {
 }
 
 var isLoad = true;
-
 function loadMore() {
     if (isLoad) {
         isLoad = false;
-        for (var i = 0; i <= 5; i++) {
-            addBlogItem(i);
-        }
-        isLoad = true;
+        readBlogAjax();
     }
 }
 
-function addLastItem(state) {
-    var html;
-    switch (state) {
-        case 'load':
-            html = '<div id="load_item" class="ui segment">\n' +
-                '<span id="load_item_text">加载更多...</span>\n' +
-                '</div>';
-            break;
-        case 'no':
-            html = '<div id="load_item" class="ui segment">\n' +
-                '<spn id="load_item_text">我是有底线的!</spn>\n' +
-                '</div>';
-            break;
-            break
-    }
-
+function addLastItem() {
+    var html = '<div id="load_item" class="ui segment">\n' +
+        '<span id="load_item_text">没有更多了</span>\n' +
+        '</div>';
     $('#content_left').append(html);
 }
 
@@ -261,7 +253,6 @@ function addUserBlogItem(i) {
         '</div>\n' +
         '</div>\n' +
         '<div id="userBlogItem_Time">' + getNowFormatDate() + '</div>\n' +
-        '<div id="userBlogItem_Content">我只是一个过客，在你的世界路过...</div>\n' +
         '</div>';
 
     $('#edit_left_div').append(html);

@@ -5,5 +5,6 @@ var blogList = [{
     date: '',    //时间
     read: '',    //阅读
     title: '',   //博客名
-    user: ''     //用户
+    user: '',     //用户
+    state:'',
 }];

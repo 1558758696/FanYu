@@ -147,7 +147,6 @@ function updateImage(object) {
 }
 
 function saveBtnAjax(object) {
-    console.info(object)
     $.ajax({
         type: "post",
         url: FanYu.blog + '/addBlog.do',
@@ -157,11 +156,10 @@ function saveBtnAjax(object) {
         },
         timeout: 5000,
         beforeSend: function () {
-            // $('#edit_save').attr('disabled', "true");
-             $('.pro-bar-container').show();
+            $('.pro-bar-container').show();
         },
         success: function (data, status) {
-            showDialog(data.info);
+            showDialog(data.info + "" + data.blogId);
         },
         fail: function (err, status) {
             console.log(err);
@@ -170,14 +168,20 @@ function saveBtnAjax(object) {
             showDialog('连接服务器失败');
         },
         complete: function (XMLHttpRequest, textStatus) {
-            $('#edit_save').removeAttr("disabled");
             $('.pro-bar-container').fadeOut();
         }
     });
 }
 
 
-function readBlogAjax(object) {
+function readBlogAjax() {
+    var userInfo = {
+        "stateId": 1,
+        "start": $('#content_left').children().length,
+        "end": 10
+    };
+    var object = $.toJSON(userInfo);
+
     $.ajax({
         type: "post",
         url: FanYu.blog + '/selectByLimit.do',
@@ -185,24 +189,16 @@ function readBlogAjax(object) {
         data: {
             'blogInfo': object
         },
-        // timeout: 5000,
         beforeSend: function () {
-            console.info(getNowFormatDate());
             $('.pro-bar-container').show();
         },
         success: function (data, status) {
             for (var i = 0; i < data.length; i++) {
-                tempList = {
-                    blogId: data[i].blogId,
-                    category: data[i].category,
-                    comment: data[i].comment,
-                    date: data[i].date,
-                    read: data[i].read,
-                    title: data[i].title,
-                    user: data[i].user
-                };
-                blogList.push(tempList);
-                if (i !== 0) addBlogItem(i);
+                addBlogItem(data[i]);
+                isLoad = true;
+            }
+            if (data.length == 0) {
+                addLastItem();
             }
         },
         fail: function (err, status) {
@@ -212,7 +208,6 @@ function readBlogAjax(object) {
             showDialog('连接服务器失败');
         },
         complete: function (XMLHttpRequest, textStatus) {
-            console.info(getNowFormatDate());
             $('.pro-bar-container').fadeOut();
         }
     });
@@ -232,7 +227,10 @@ function readBlogContentAjax(id) {
             $('.pro-bar-container').show();
         },
         success: function (data, status) {
-            console.info(data);
+            $('#title').text(data.title);
+            $('#blogTit').text(data.title);
+            $('#author').text(data.user);
+            $('#date').text(data.date);
             $('#blogContent').append(data.content);
         },
         fail: function (err, status) {

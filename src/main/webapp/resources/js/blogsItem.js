@@ -5,10 +5,7 @@ $(document).ready(function () {
     $('#content_left').on('click', '#content_left_item_Tit_span,#author,#collect,#load_item', function () {
         switch ($(this).attr('id')) {
             case 'content_left_item_Tit_span':
-                var readBlogs = $(this).text();
-                setTempInfo('blogsName', readBlogs);
                 setTempInfo('blogId', $(this).parent().parent().find('#blogId').text());
-                console.info(getTempInfo('blogId'));
                 window.open('./blogs.html');
                 break;
             case 'author':
